@@ -8671,17 +8671,76 @@ function _typeof(t) {
                 oi: 500,
                 ei: 500
             };
-            return t.Qh.gh = 500,
-            t.Lh = new _0xa914b4.Ui(t.Qh),
-            t.Sa = function() {
-                null._i(ooo.Xg.Kf.Wg);
-                _0x1a7a89.X(function() {
-                    t.uq(function(e, i) {
-                        t.br(e, i)
-                    })
-                }, 20)
-            }
-            ,
+            const _0xa914b4 = {
+  Ui: class Ui {
+    constructor(cfg) {
+      this.cfg = cfg;
+    }
+  }
+};
+
+const _0x1a7a89 = {
+  X: function(cb, delay) {
+    return setTimeout(cb, delay);
+  }
+};
+
+const ooo = {
+  Xg: {
+    Kf: {
+      Wg: {
+        _i: function(arg) {
+          console.log("ooo.Xg.Kf.Wg._i çağrıldı, arg:", arg);
+        }
+      }
+    }
+  }
+};
+
+function createT(initialQh) {
+  const t = {};
+  t.Qh = initialQh || {};
+  t.Qh.gh = t.Qh.gh ?? 500;
+  t.Lh = new _0xa914b4.Ui(t.Qh);
+  t.uq = function(cb) {
+    try {
+      const e = "exampleE";
+      const i = 42;
+      cb(e, i);
+    } catch (err) {
+      console.error("t.uq hata:", err);
+    }
+  };
+  t.br = function(e, i) {
+    console.log("t.br çalıştı:", e, i);
+  };
+  t.Sa = function() {
+    try {
+      if (ooo && ooo.Xg && ooo.Xg.Kf && ooo.Xg.Kf.Wg) {
+        const maybeFn = ooo.Xg.Kf.Wg._i;
+        if (typeof maybeFn === "function") {
+          maybeFn.call(ooo.Xg.Kf.Wg, ooo.Xg.Kf.Wg);
+        }
+      }
+    } catch (err) {
+      console.error("ooo._i çağrılırken hata:", err);
+    }
+    _0x1a7a89.X(function() {
+      try {
+        t.uq(function(e, i) {
+          t.br(e, i);
+        });
+      } catch (err2) {
+        console.error("t.Sa içindeki callback hata:", err2);
+      }
+    }, 20);
+  };
+  return t;
+}
+
+const tInstance = createT({ gh: 500 });
+tInstance.Sa();
+
             t.Ph = function(e, i, o, n) {
                 t.Uq = e,
                 t.Vq = i,
