@@ -8674,7 +8674,7 @@ function _typeof(t) {
             return t.Qh.gh = 500,
             t.Lh = new _0xa914b4.Ui(t.Qh),
             t.Sa = function() {
-                null._i(ooo.Xg.Kf.Wg),
+                null._i(ooo.Xg.Kf.Wg);
                 _0x1a7a89.X(function() {
                     t.uq(function(e, i) {
                         t.br(e, i)
