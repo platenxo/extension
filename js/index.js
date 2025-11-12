@@ -1448,7 +1448,7 @@ window.addEventListener("load", function () {
         tb: 500
       };
 
-    	  // Bu değişkenle interval'ı kontrol edeceğiz
+	  // Bu değişkenle interval'ı kontrol edeceğiz
 let heartbeatInterval;
 
 function startHeartbeat() {
@@ -1575,7 +1575,7 @@ function stopHeartbeat() {
       vO12.Ub = function () {
         vO12.db = null;
         vO12.z.Sb();
-        fHeartbeatStop();
+        stopHeartbeat();
         if (vO12.cb !== 3) {
           vO12.A();
         }
@@ -1644,7 +1644,7 @@ function stopHeartbeat() {
         if (vO12.eb !== v895) {
           var v896 = new ArrayBuffer(1);
           new DataView(v896).setInt8(0, v895);
-          fHeartbeatStop();
+          stopHeartbeat();
           vO12.Wb(v896);
           vO12.eb = v895;
           fHeartbeatStart(); 
@@ -1668,7 +1668,7 @@ function stopHeartbeat() {
           vO.aload = false;
           if (vO12.db === v897) {
             console.log("Socket closed");
-            fHeartbeatStop();
+            stopHeartbeat();
             vO12.Ub();
           }
           v786 = false;
@@ -1679,7 +1679,7 @@ function stopHeartbeat() {
         v897.onerror = function (p804) {
           if (vO12.db === v897) {
             console.log("Socket error");
-            fHeartbeatStop();
+            stopHeartbeat();
             vO12.Ub();
           }
           v786 = false;
