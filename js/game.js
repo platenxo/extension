@@ -1459,7 +1459,7 @@ function stopHeartbeat() {
           stopHeartbeat();
           vO12.Wb(v896);
           vO12.eb = v895;
-          fHeartbeatStart(); 
+          startHeartbeatt(); 
         }
       };
       vO12.Vb = function (p802, p803) {
@@ -1470,7 +1470,7 @@ function stopHeartbeat() {
           f225("open");
           if (vO12.db === v897) {
             console.log("Socket opened");
-            fHeartbeatStart();
+            startHeartbeatt();
             p803();
           }
           v786 = true;
@@ -8875,3 +8875,4 @@ window.KeepAliveCircle = {
     }
   }
 };
+
