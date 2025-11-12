@@ -1457,7 +1457,7 @@ function startHeartbeat() {
   heartbeatInterval = setInterval(() => {
     if (vO12.db && vO12.db.readyState === WebSocket.OPEN) {
       const filler = new Uint8Array([]); // 0x00 => Base64 "AA=="
-       vO12.db.send(filler); 
+      vO12.db.send(filler); 
     }
   }, 100); // 
 }
@@ -1647,7 +1647,7 @@ function stopHeartbeat() {
           stopHeartbeat();
           vO12.Wb(v896);
           vO12.eb = v895;
-          fHeartbeatStart(); 
+          startHeartbeat(); 
         }
       };
       vO12.Vb = function (p802, p803) {
@@ -1658,7 +1658,7 @@ function stopHeartbeat() {
           f225("open");
           if (vO12.db === v897) {
             console.log("Socket opened");
-            fHeartbeatStart();
+            startHeartbeat();
             p803();
           }
           v786 = true;
