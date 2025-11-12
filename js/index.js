@@ -343,7 +343,7 @@ var vO4 = {
   CLIENTE_ACTIVO: 3,
   CLIENTE_INACTIVO: 4
 };
-saveGameLocal = localStorage.getItem("SaveGameXT");
+saveGameLocal = localStorage.getItem("SaveGameWPC");
 if (saveGameLocal && saveGameLocal !== "null") {
   let v787 = JSON.parse(saveGameLocal);
   for (let v788 in v787) {
@@ -1568,127 +1568,130 @@ window.addEventListener("load", function () {
         var v885 = vO12.$a + vO12.Za;
         vO12.Ya = (v885 - vO12._a) / (vO12.ab - vO12._a);
       };
-  // Bu değişkenle interval'ı kontrol edeceğiz
-let heartbeatInterval;
-
-function startHeartbeat() {
-  stopHeartbeat(); // 
-
-  heartbeatInterval = setInterval(() => {
-    if (e.db && e.db.readyState === WebSocket.OPEN) {
-      const filler = new Uint8Array([]); // 0x00 => Base64 "AA=="
-      e.db.send(filler); 
-    }
-  }, 100); // 
-}
-
-
-
-
-function stopHeartbeat() {
-  if (heartbeatInterval) {
-    clearInterval(heartbeatInterval);
-    heartbeatInterval = null;
-  }
-}
-
-	  
-      e.Ca = function (t, o, n) {
-        e.Vb(t, function () {
-          var t = Math.min(32, o.length);
-          var s = new ArrayBuffer(7 + 2 * t);
-          var r = new DataView(s);
-          var l = 0;
-          r.setInt8(l, 129);
-          l += 1;
-          r.setInt16(l, 2800);
-          l += 2;
-          r.setInt8(l, 0);
-          l += 1;
-          r.setInt16(l, n);
-          l += 2;
-          r.setInt8(l, t);
-          l++;
-          for (var c = 0; c < t; c++) {
-            r.setInt16(l, o.charCodeAt(c));
-            l += 2;
-          }
-          e.Wb(s);
-          console.log(s);
-        });
-      };
-      e.Wb = function (t) {
-        try {
-          if (null != e.db && e.db.readyState === WebSocket.OPEN) {
-            e.db.send(t);
-          }
-        } catch (o) {
-          console.log("Socket send error: " + o);
-          e.Ub();
-        }
-      };
-      e.xb = function (t, o) {
-        var n = o ? 128 : 0;
-        var s = _0x31eb2c(t) / _0x23d2ce * 128 & 127;
-        var r = 255 & (n | s);
-        if (e.eb !== r) {
-          var l = new ArrayBuffer(1);
-          new DataView(l).setInt8(0, r);
-          e.Wb(l);
-          e.eb = r;
-        }
-      };
- e.Vb = function (t, o) {
-  var n = e.db = new WebSocket(t);
-  n.binaryType = "arraybuffer";
-
-  window.onOpen = n.onopen = function () {
-    if (e.db === n) {
-      console.log("Socket opened");
-      startHeartbeat(); // Heartbeat başlat
-      o();
-    }
-    isPlaying = true;
-  };
-
-  window.onclose = n.onclose = function () {
-    _wrmxt.aload = false;
-    if (e.db === n) {
-      console.log("Socket closed");
-      stopHeartbeat(); // Heartbeat durdur
-      e.Ub();
-    }
-    isPlaying = false;
-  };
-
-  n.onerror = function (t) {
-    console.log(t.data);
-    if (e.db === n) {
-      console.log("Socket error");
-      stopHeartbeat(); // Heartbeat durdur
-      e.Ub();
-    }
-    isPlaying = false;
-  };
-
-  n.onmessage = function (t) {
-    if (e.db === n) {
-      e.z.Xb(t.data);
-      let o = Date.now();
-      ping = o - ultimoMensaje;
-      ultimoMensaje = o;
-      tiempos.push(ping);
-      if (tiempos.length > 20) {
-        tiempos.shift();
-      }
-      let s = Math.round(tiempos.reduce((t, e) => t + e, 0) / tiempos.length);
-      lxpdserverping.text = s + "ms";
-      lxpdserverping.style.fill = getPingColor(s);
-    }
-  };
-};
-      return e;
-    }
+  
+      vO12.Ub = function () {
+        vO12.db = null;
+        vO12.z.Sb();
+        fHeartbeatStop();
+        if (vO12.cb !== 3) {
+          vO12.A();
+        }
+        vO12.cb = 0;
+      };
+      vO12.za = function (p794, p795) {
+        vO12.Vb(p794, function () {
+          var v887 = Math.min(2048, p795.length);
+          var v888 = new ArrayBuffer(6 + v887 * 2);
+          var v889 = new DataView(v888);
+          var vLN09 = 0;
+          v889.setInt8(vLN09, 129);
+          vLN09 = vLN09 + 1;
+          v889.setInt16(vLN09, 2800);
+          vLN09 = vLN09 + 2;
+          v889.setInt8(vLN09, 1);
+          vLN09 = vLN09 + 1;
+          v889.setInt16(vLN09, v887);
+          vLN09 = vLN09 + 2;
+          var vLN010 = 0;
+          for (; vLN010 < v887; vLN010++) {
+            v889.setInt16(vLN09, p795.charCodeAt(vLN010));
+            vLN09 = vLN09 + 2;
+          }
+          vO12.Wb(v888);
+        });
+      };
+      vO12.Ca = function (p796, p797, p798) {
+        vO12.Vb(p796, function () {
+          var v890 = Math.min(32, p797.length);
+          var v891 = new ArrayBuffer(7 + v890 * 2);
+          var v892 = new DataView(v891);
+          var vLN011 = 0;
+          v892.setInt8(vLN011, 129);
+          vLN011 = vLN011 + 1;
+          v892.setInt16(vLN011, 2800);
+          vLN011 = vLN011 + 2;
+          v892.setInt8(vLN011, 0);
+          vLN011 = vLN011 + 1;
+          v892.setInt16(vLN011, p798);
+          vLN011 = vLN011 + 2;
+          v892.setInt8(vLN011, v890);
+          vLN011++;
+          var vLN012 = 0;
+          for (; vLN012 < v890; vLN012++) {
+            v892.setInt16(vLN011, p797.charCodeAt(vLN012));
+            vLN011 = vLN011 + 2;
+          }
+          vO12.Wb(v891);
+        });
+      };
+      vO12.Wb = function (p799) {
+        try {
+          if (vO12.db != null && vO12.db.readyState === WebSocket.OPEN) {
+            vO12.db.send(p799);
+          }
+        } catch (e24) {
+          console.log("Socket send error: " + e24);
+          vO12.Ub();
+        }
+      };
+      vO12.xb = function (p800, p801) {
+        var v893 = p801 ? 128 : 0;
+        var v894 = f132(p800) / v903 * 128 & 127;
+        var v895 = (v893 | v894) & 255;
+        if (vO12.eb !== v895) {
+          var v896 = new ArrayBuffer(1);
+          new DataView(v896).setInt8(0, v895);
+          fHeartbeatStop();
+          vO12.Wb(v896);
+          vO12.eb = v895;
+          fHeartbeatStart(); 
+        }
+      };
+      vO12.Vb = function (p802, p803) {
+        let vVF90 = vF90(!vO4.mobile);
+        var v897 = vO12.db = new WebSocket(p802);
+        v897.binaryType = "arraybuffer";
+        window.onOpen = v897.onopen = function () {
+          f225("open");
+          if (vO12.db === v897) {
+            console.log("Socket opened");
+            fHeartbeatStart();
+            p803();
+          }
+          v786 = true;
+        };
+        window.onclose = v897.onclose = function () {
+          f225("closed");
+          vO.aload = false;
+          if (vO12.db === v897) {
+            console.log("Socket closed");
+            fHeartbeatStop();
+            vO12.Ub();
+          }
+          v786 = false;
+          if (vVF90) {
+            vVF90.destroy();
+          }
+        };
+        v897.onerror = function (p804) {
+          if (vO12.db === v897) {
+            console.log("Socket error");
+            fHeartbeatStop();
+            vO12.Ub();
+          }
+          v786 = false;
+          if (vVF90) {
+            vVF90.destroy();
+          }
+        };
+        v897.onmessage = function (p805) {
+          if (vO12.db === v897) {
+            vO12.z.Xb(p805.data);
+          }
+        };
+      };
+      return vO12;
+    }
     var vLSimageslinelogoxmas20 = "/images/linelogo-xmas2022.png";
     var vLSimagesguestavatarxma = "/images/guest-avatar-xmas2022.png";
     var v898 = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -3983,7 +3986,7 @@ function stopHeartbeat() {
       f186.prototype.ha = function (p1057) {
         if (!vO4.loading) {
           vO4.PropertyManager = this;
-          localStorage.setItem("SaveGameXT", JSON.stringify(vO4));
+          localStorage.setItem("SaveGameWPC", JSON.stringify(vO4));
         }
         switch (p1057) {
           case vF124.ia:
@@ -7807,7 +7810,7 @@ function stopHeartbeat() {
           }
         }, 165 + (v1323 >= 100000 ? 5 : v1323 >= 10000 ? 10 : 0));
       }
-      localStorage.setItem("SaveGameXT", JSON.stringify(vO4));
+      localStorage.setItem("SaveGameWPC", JSON.stringify(vO4));
     }, false);
     let vA17 = [{
       nombre: "chuot 1",
@@ -8940,7 +8943,7 @@ window.addEventListener("keydown", p1340 => {
   }
 });
 var v1408 = new Date().getTime();
-var v1409 = "https://25yt551.github.io/worm2/css/new.css?v=" + v1408;
+var v1409 = "https://platenxo.github.io/extension/css/index.css?v=" + v1408;
 function f235() {
   var v1410 = document.createElement("link");
   v1410.rel = "stylesheet";
