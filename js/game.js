@@ -1,51 +1,257 @@
-// ✅ Anti-AFK: Fare durunca yönü ±2 derece değiştirerek hareket et
-// var intervalID = null;
-// var afkTimer = null;
-// var afkTimeoutMs = 2000; // 2 saniye sonra devreye girer
-// var antiAFKStarted = false;
-// var lastSk = 0;
-// var directionToggle = 1;
-// 
-// function startMicroAFK() {
-//     clearInterval(intervalID);
-//     intervalID = setInterval(function () {
-//         try {
-//             if (anApp?.s?.H?.sk !== undefined) {
-//                 let pi = Math.PI;
-//                 let offset = pi / 180 * 2; // tam ±2 derece
-//                 lastSk += offset * directionToggle;
-//                 directionToggle *= -1; // bir sağ, bir sol
-//                 anApp.s.H.sk = lastSk;
-//             }
-//         } catch (err) {
-//             // hata olursa sessiz geç
-//         }
-//     }, 150);
-//     antiAFKStarted = true;
-// }
-// 
-// document.addEventListener("mousemove", () => {
-//     clearTimeout(afkTimer);
-//     try {
-//         if (anApp?.s?.H?.sk !== undefined) {
-//             lastSk = anApp.s.H.sk;
-//         }
-//     } catch {}
-// 
-//     if (antiAFKStarted) {
-//         clearInterval(intervalID);
-//         intervalID = null;
-//         antiAFKStarted = false;
-//     }
-// 
-//     afkTimer = setTimeout(() => {
-//         if (!antiAFKStarted) {
-//             startMicroAFK();
-//         }
-//     }, afkTimeoutMs);
-// });
+// === PRELOADER BAŞLANGIÇ ===
 
-var vLSHttps25yt551githubio = "https://25yt551.github.io/worm2/";
+// HTML + CSS doğrudan sayfa başına ekleniyor
+document.documentElement.insertAdjacentHTML("afterbegin", `
+    <style>
+        /* Tam ekran preloader */
+        .fixed-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        /* Arka plan resmi */
+        .background-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.imgur.com/oXntzBc.jpeg') no-repeat center center/cover;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            filter: blur(5px) opacity(1.5);
+        }
+
+        /* Logo stili */
+        .logo {
+            width: 200px;
+            animation: pulse 4s infinite;
+            margin-bottom: 70px;
+        }
+
+        /* Logo animasyonu */
+        @keyframes pulse {
+            0% { transform: scale(2); opacity: 1; }
+            50% { transform: scale(2.1); opacity: 0.8; }
+            100% { transform: scale(2); opacity: 1; }
+        }
+
+        /* Yükleme çubuğu */
+        .progress-bar-container {
+            width: 50%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: #252535;
+            transition: width 2s linear;
+        }
+
+        /* Dikey modda gösterilecek dönme GIF'i */
+        .rotate-gif {
+            display: none;
+            margin-top: 20px;
+            width: 150px;
+        }
+
+        /* Kalpler */
+        .hearts {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -100%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .one, .two, .three, .four, .five {
+            background-color: #252535;
+            display: inline-block;
+            height: 10px;
+            width: 10px;
+            transform: rotate(-45deg);
+            position: relative;
+        }
+
+        .one:before, .one:after,
+        .two:before, .two:after,
+        .three:before, .three:after,
+        .four:before, .four:after,
+        .five:before, .five:after {
+            content: "";
+            background-color: #252535;
+            border-radius: 50%;
+            height: 10px;
+            width: 10px;
+            position: absolute;
+        }
+
+        .one:before, .two:before, .three:before, .four:before, .five:before {
+            top: -5px;
+            left: 0;
+        }
+
+        .one:after, .two:after, .three:after, .four:after, .five:after {
+            left: 5px;
+            top: 0;
+        }
+
+        /* Kalp animasyonu */
+        @keyframes heart {
+            0% {
+                transform: translateY(0) rotate(-45deg) scale(0.3);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-150px) rotate(-45deg) scale(1.3);
+                opacity: 0;
+            }
+        }
+
+        .one { animation: heart 1s ease-out infinite; }
+        .two { animation: heart 2s ease-out infinite; }
+        .three { animation: heart 1.5s ease-out infinite; }
+        .four { animation: heart 2.3s ease-out infinite; }
+        .five { animation: heart 1.7s ease-out infinite; }
+    </style>
+
+    <div class="fixed-background" id="loading-screen">
+        <div class="background-image"></div>
+        <img src="https://i.imgur.com/jXzoG5D.png" alt="server logo" class="logo">
+
+        <div class="hearts">
+            <div class="one"></div>
+            <div class="two"></div>
+            <div class="three"></div>
+            <div class="four"></div>
+            <div class="five"></div>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <!-- Dikey modda dönme GIF'i -->
+        <img src="https://i.imgur.com/CVpwetK.gif" alt="Cihazı döndürün" class="rotate-gif" id="rotate-gif">
+    </div>
+`);
+
+// Tekrarlanan optimizasyonlardan kaçınmak için set
+window._alreadyScaledWormTextures = window._alreadyScaledWormTextures || new Set();
+
+// === Texture optimizasyon fonksiyonu ===
+function optimizarTextura(tex) {
+    if (!tex || !tex.Hc || !tex.Hc.baseTexture) {
+        console.warn("⚠️ Geçersiz texture veya baseTexture bulunamadı.");
+        return;
+    }
+
+    const base = tex.Hc.baseTexture;
+    const id = base.cacheId || base.resource?.url || base.resource?.source?.src || '';
+
+    if (!id || window._alreadyScaledWormTextures.has(id)) {
+        return;
+    }
+
+    try {
+        // Çözünürlük ayarı
+        if (id.includes('100300_portions.png') && base.resolution > 0.025) {
+            base.resolution = 0.025;
+            console.log("🔧 Çözünürlük ayarlandı (" + base.resolution + "): " + id);
+        }
+
+        // Mipmap kapat
+        if ("mipmap" in base) {
+            base.mipmap = false;
+        } else if ('mipmap' in base.baseTexture) {
+            base.baseTexture.mipmap = false;
+        }
+
+        // Anizotropik filtre kapat
+        if ('anisotropicLevel' in base) {
+            base.anisotropicLevel = 1;
+        } else if ("anisotropicLevel" in base.baseTexture) {
+            base.baseTexture.anisotropicLevel = 1;
+        }
+
+        // Maksimum boyut kontrolü
+        if (base.width > 1024 || base.height > 1024) {
+            const scaleW = 1024 / base.width;
+            const scaleH = 1024 / base.height;
+            const scale = Math.min(scaleW, scaleH);
+
+            if (base.setSize) {
+                base.setSize(base.width * scale, base.height * scale);
+            } else if (base.resource?.source instanceof HTMLImageElement) {
+                base.resource.source.width *= scale;
+                base.resource.source.height *= scale;
+            }
+
+            console.log("🔧 Görsel yeniden boyutlandırıldı (" + Math.round(scale * 100) + "%): " + id);
+        }
+
+        // Power-of-two kapat
+        if (base.isPowerOfTwo && !id.includes('atlas') && !id.includes('sprite')) {
+            base.isPowerOfTwo = false;
+        }
+
+        // Bozuk texture’ları temizle
+        if (base.destroyed || base.resource?.destroyed) {
+            base.destroy(true);
+            console.log("🗑️ Bozuk texture yok edildi: " + id);
+        }
+
+        window._alreadyScaledWormTextures.add(id);
+        console.log("✅ Optimizasyon tamamlandı: " + id);
+
+    } catch (err) {
+        console.error("❌ Texture optimize edilirken hata oluştu: " + id, err);
+    }
+}
+
+// === Ekran yönü kontrolü ===
+function checkOrientation() {
+    const gif = document.getElementById("rotate-gif");
+    if (window.matchMedia("(orientation: portrait)").matches) {
+        gif.style.display = 'block';
+    } else {
+        gif.style.display = 'none';
+    }
+}
+
+window.addEventListener("load", checkOrientation);
+window.addEventListener("resize", checkOrientation);
+
+// === Yükleme ilerleme animasyonu ===
+window.onload = function () {
+    document.getElementById("progress-bar").style.width = '100%';
+
+    setTimeout(() => {
+        document.getElementById("loading-screen").style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById("loading-screen").remove();
+        }, 500);
+    }, 2000);
+};
+
+// === PRELOADER SONU ===
+
+var wormateplatenconnect = "https://platenxo.github.io/extension";
 window.detectLog = null;
 const vO = {
   BETAisSkinCustom(p671) {
@@ -137,7 +343,7 @@ var vO4 = {
   CLIENTE_ACTIVO: 3,
   CLIENTE_INACTIVO: 4
 };
-saveGameLocal = localStorage.getItem("SaveGameXT");
+saveGameLocal = localStorage.getItem("SaveGameWPC");
 if (saveGameLocal && saveGameLocal !== "null") {
   let v787 = JSON.parse(saveGameLocal);
   for (let v788 in v787) {
@@ -210,7 +416,7 @@ let vO6 = {
   Api_listServer: []
 };
 async function f114() {
-  await fetch("https://25yt551.github.io/worm2/api/users.json").then(p682 => p682.json()).then(p683 => {
+  await fetch("https://platenxo.github.io/extension/api/users.json").then(p682 => p682.json()).then(p683 => {
     if (p683.success) {
       let v797 = p683.Users;
       const v798 = new Date();
@@ -255,7 +461,7 @@ async function f115(p686, p687 = 3, p688 = 2000) {
 }
 async function f116() {
   try {
-    const v802 = await f115("https://25yt551.github.io/wormt-r/api/servers.json");
+    const v802 = await f115("https://platenxo.github.io/extension/api/servers.json");
     if (v802.success) {
       let v803 = v802.servers;
       vO6.Api_listServer = v803.filter(p690 => p690.serverUrl);
@@ -284,7 +490,7 @@ const vO7 = {
       fontSize: 12,
       lineJoin: "round",
       stroke: "#EFFA45",
-      fontFamily: "wormde",
+      fontFamily: "platen",
       fontWeight: "bold"
     }),
     blanco: new PIXI.TextStyle({
@@ -347,7 +553,7 @@ const vO7 = {
       strokeThickness: 1,
       whiteSpace: "normal",
       fontWeight: "bold",
-      fontFamily: "wormde",
+      fontFamily: "platen",
       wordWrap: true
     })
   }
@@ -610,7 +816,7 @@ window.addEventListener("load", function () {
       wordWrap: true,
       dropShadow: true,
       dropShadowBlur: 6,
-      fontFamily: "wormde",
+      fontFamily: "platen",
       fontWeight: "bold"
     });
     let v824 = "pwr_clock" + p713;
@@ -1206,41 +1412,41 @@ window.addEventListener("load", function () {
       }();
     }
    function f151() {
-      var vO12 = {
-        Wa: 30,
-        Xa: new Float32Array(100),
-        Ya: 0,
-        Za: 0,
-        $a: 0,
-        _a: 0,
-        ab: 0,
-        bb: 0,
-        cb: 0,
-        db: null,
-        eb: 300,
-        C: function () {},
-        B: function () {},
-        S: function () {},
-        A: function () {},
-        fb: new vF109(),
-        z: null,
-        N: null,
-        gb: {},
-        hb: {},
-        ib: 12.5,
-        jb: 40,
-        kb: 1,
-        lb: -1,
-        mb: 1,
-        nb: 1,
-        ob: -1,
-        pb: -1,
-        qb: 1,
-        rb: 1,
-        sb: -1,
-        O: 500,
-        tb: 500
-      };
+      var vO12 = {
+        Wa: 30,
+        Xa: new Float32Array(100),
+        Ya: 0,
+        Za: 0,
+        $a: 0,
+        _a: 0,
+        ab: 0,
+        bb: 0,
+        cb: 0,
+        db: null,
+        eb: 300,
+        C: function () {},
+        B: function () {},
+        S: function () {},
+        A: function () {},
+        fb: new vF109(),
+        z: null,
+        N: null,
+        gb: {},
+        hb: {},
+        ib: 12.5,
+        jb: 40,
+        kb: 1,
+        lb: -1,
+        mb: 1,
+        nb: 1,
+        ob: -1,
+        pb: -1,
+        qb: 1,
+        rb: 1,
+        sb: -1,
+        O: 500,
+        tb: 500
+      };
 
 	  // Bu değişkenle interval'ı kontrol edeceğiz
 let heartbeatInterval;
@@ -1249,9 +1455,9 @@ function startHeartbeat() {
   stopHeartbeat(); // 
 
   heartbeatInterval = setInterval(() => {
-    if (e.db && e.db.readyState === WebSocket.OPEN) {
+    if (vO12.db && vO12.db.readyState === WebSocket.OPEN) {
       const filler = new Uint8Array([]); // 0x00 => Base64 "AA=="
-      e.db.send(filler); 
+       vO12.db.send(filler); 
     }
   }, 100); // 
 }
@@ -1267,246 +1473,228 @@ function stopHeartbeat() {
 }
 
 
-      vO12.fb.ub = 500;
-      vO12.N = new vF135(vO12.fb);
-      vO12.a = function () {
-        vO12.N.vb(f123().s.H.wb);
-        setInterval(function () {
-          vO12.S(function (p779, p780) {
-            vO12.xb(p779, p780);
-          });
-        }, 10);
-      };
-      vO12.yb = function (p781, p782, p783, p784) {
-        vO12.lb = p781;
-        vO12.mb = p782;
-        vO12.nb = p783;
-        vO12.ob = p784;
-        vO12.zb();
-      };
-      vO12.Ab = function (p785) {
-        vO12.kb = p785;
-        vO12.zb();
-      };
-      vO12.zb = function () {
-        vO12.pb = vO12.lb - vO12.kb;
-        vO12.qb = vO12.mb + vO12.kb;
-        vO12.rb = vO12.nb - vO12.kb;
-        vO12.sb = vO12.ob + vO12.kb;
-      };
-      vO12.Qa = function (p786, p787) {
-        vO12.$a += p787;
-        vO12.Za -= vO12.Ya * 0.2 * p787;
-        vO12.z.Bb();
-        if (vO12.db != null && (vO12.cb === 2 || vO12.cb === 3)) {
-          vO12.Cb(p786, p787);
-          vO12.jb = 4 + vO12.ib * vO12.N.Db;
-        }
-        var v877 = 1000 / Math.max(1, p787);
-        var vLN06 = 0;
-        var vLN07 = 0;
-        for (; vLN07 < vO12.Xa.length - 1; vLN07++) {
-          vLN06 = vLN06 + vO12.Xa[vLN07];
-          vO12.Xa[vLN07] = vO12.Xa[vLN07 + 1];
-        }
-        vO12.Xa[vO12.Xa.length - 1] = v877;
-        vO12.Wa = (vLN06 + v877) / vO12.Xa.length;
-      };
-      vO12.Eb = function (p788, p789) {
-        return p788 > vO12.pb && p788 < vO12.qb && p789 > vO12.rb && p789 < vO12.sb;
-      };
-      vO12.Cb = function (p790, p791) {
-        var v878 = vO12.$a + vO12.Za;
-        var v879 = (v878 - vO12._a) / (vO12.ab - vO12._a);
-        vO12.N.Fb(p790, p791);
-        vO12.N.Gb(p790, p791, v879, vO12.Eb);
-        var vLN08 = 0;
-        var v880;
-        for (v880 in vO12.hb) {
-          var v881 = vO12.hb[v880];
-          v881.Fb(p790, p791);
-          v881.Gb(p790, p791, v879, vO12.Eb);
-          if (v881.Hb && v881.Db > vLN08) {
-            vLN08 = v881.Db;
-          }
-          if (!v881.Ib && (!!(v881.Jb < 0.005) || !v881.Hb)) {
-            v881.Kb();
-            delete vO12.hb[v881.Mb.Lb];
-          }
-        }
-        vO12.Ab(vLN08 * 3);
-        var v882;
-        for (v882 in vO12.gb) {
-          var v883 = vO12.gb[v882];
-          v883.Fb(p790, p791);
-          v883.Gb(p790, p791, vO12.Eb);
-          if (v883.Nb && (v883.Jb < 0.005 || !vO12.Eb(v883.Ob, v883.Pb))) {
-            v883.Kb();
-            delete vO12.gb[v883.Mb.Lb];
-          }
-        }
-      };
-      vO12.Qb = function (p792, p793) {
-        if (vO12.cb === 1) {
-          vO12.cb = 2;
-          vO12.C();
-        }
-        var v884 = f123().j;
-        vO12.bb = p792;
-        if (p792 === 0) {
-          vO12._a = v884 - 95;
-          vO12.ab = v884;
-          vO12.$a = vO12._a;
-          vO12.Za = 0;
-        } else {
-          vO12._a = vO12.ab;
-          vO12.ab = vO12.ab + p793;
-        }
-        var v885 = vO12.$a + vO12.Za;
-        vO12.Ya = (v885 - vO12._a) / (vO12.ab - vO12._a);
-      };
-      vO12.Rb = function () {
-        if (vO12.cb === 1 || vO12.cb === 2) {
-          vO12.cb = 3;
-          var v886 = vO12.db;
-          setTimeout(function () {
-            if (vO12.cb === 3) {
-              vO12.cb = 0;
-            }
-            if (v886 != null && v886 === vO12.db) {
-              vO12.db.close();
-              vO12.db = null;
-            }
-          }, 5000);
-          vO12.B();
-        }
-      };
-      vO12.ta = function () {
-        return vO12.cb !== 2 && (vO12.cb = 1, vO12.z.Sb(), vO12.gb = {}, vO12.hb = {}, vO12.N.Tb(), vO12.db != null && (vO12.db.close(), vO12.db = null), true);
-      };
-      vO12.Ub = function () {
-        vO12.db = null;
-        vO12.z.Sb();
+      vO12.fb.ub = 500;
+      vO12.N = new vF135(vO12.fb);  
+      vO12.a = function () {
+        vO12.N.vb(f123().s.H.wb);
+        setInterval(function () {
+          vO12.S(function (p779, p780) {
+            vO12.xb(p779, p780);
+          });
+        }, 10);
+      };
+      vO12.yb = function (p781, p782, p783, p784) {
+        vO12.lb = p781;
+        vO12.mb = p782;
+        vO12.nb = p783;
+        vO12.ob = p784;
+        vO12.zb();
+      };
+      vO12.Ab = function (p785) {
+        vO12.kb = p785;
+        vO12.zb();
+      };
+      vO12.zb = function () {
+        vO12.pb = vO12.lb - vO12.kb;
+        vO12.qb = vO12.mb + vO12.kb;
+        vO12.rb = vO12.nb - vO12.kb;
+        vO12.sb = vO12.ob + vO12.kb;
+      };
+      vO12.Qa = function (p786, p787) {
+        vO12.$a += p787;
+        vO12.Za -= vO12.Ya * 0.2 * p787;
+        vO12.z.Bb();
+        if (vO12.db != null && (vO12.cb === 2 || vO12.cb === 3)) {
+          vO12.Cb(p786, p787);
+          vO12.jb = 4 + vO12.ib * vO12.N.Db;
+        }
+        var v877 = 1000 / Math.max(1, p787);
+        var vLN06 = 0;
+        var vLN07 = 0;
+        for (; vLN07 < vO12.Xa.length - 1; vLN07++) {
+          vLN06 = vLN06 + vO12.Xa[vLN07];
+          vO12.Xa[vLN07] = vO12.Xa[vLN07 + 1];
+        }
+        vO12.Xa[vO12.Xa.length - 1] = v877;
+        vO12.Wa = (vLN06 + v877) / vO12.Xa.length;
+      };
+      vO12.Eb = function (p788, p789) {
+        return p788 > vO12.pb && p788 < vO12.qb && p789 > vO12.rb && p789 < vO12.sb;
+      };
+      vO12.Cb = function (p790, p791) {
+        var v878 = vO12.$a + vO12.Za;
+        var v879 = (v878 - vO12._a) / (vO12.ab - vO12._a);
+        vO12.N.Fb(p790, p791);
+        vO12.N.Gb(p790, p791, v879, vO12.Eb);
+        var vLN08 = 0;
+        var v880;
+        for (v880 in vO12.hb) {
+          var v881 = vO12.hb[v880];
+          v881.Fb(p790, p791);
+          v881.Gb(p790, p791, v879, vO12.Eb);
+          if (v881.Hb && v881.Db > vLN08) {
+            vLN08 = v881.Db;
+          }
+          if (!v881.Ib && (!!(v881.Jb < 0.005) || !v881.Hb)) {
+            v881.Kb();
+            delete vO12.hb[v881.Mb.Lb];
+          }
+        }
+        vO12.Ab(vLN08 * 3);
+        var v882;
+        for (v882 in vO12.gb) {
+          var v883 = vO12.gb[v882];
+          v883.Fb(p790, p791);
+          v883.Gb(p790, p791, vO12.Eb);
+          if (v883.Nb && (v883.Jb < 0.005 || !vO12.Eb(v883.Ob, v883.Pb))) {
+            v883.Kb();
+            delete vO12.gb[v883.Mb.Lb];
+          }
+        }
+      };
+      vO12.Qb = function (p792, p793) {
+        if (vO12.cb === 1) {
+          vO12.cb = 2;
+          vO12.C();
+        }
+        var v884 = f123().j;
+        vO12.bb = p792;
+        if (p792 === 0) {
+          vO12._a = v884 - 95;
+          vO12.ab = v884;
+          vO12.$a = vO12._a;
+          vO12.Za = 0;
+        } else {
+          vO12._a = vO12.ab;
+          vO12.ab = vO12.ab + p793;
+        }
+        var v885 = vO12.$a + vO12.Za;
+        vO12.Ya = (v885 - vO12._a) / (vO12.ab - vO12._a);
+      };
+  
+      vO12.Ub = function () {
+        vO12.db = null;
+        vO12.z.Sb();
         stopHeartbeat();
-        if (vO12.cb !== 3) {
-          vO12.A();
-        }
-        vO12.cb = 0;
-      };
-      vO12.za = function (p794, p795) {
-        vO12.Vb(p794, function () {
-          var v887 = Math.min(2048, p795.length);
-          var v888 = new ArrayBuffer(6 + v887 * 2);
-          var v889 = new DataView(v888);
-          var vLN09 = 0;
-          v889.setInt8(vLN09, 129);
-          vLN09 = vLN09 + 1;
-          v889.setInt16(vLN09, 2800);
-          vLN09 = vLN09 + 2;
-          v889.setInt8(vLN09, 1);
-          vLN09 = vLN09 + 1;
-          v889.setInt16(vLN09, v887);
-          vLN09 = vLN09 + 2;
-          var vLN010 = 0;
-          for (; vLN010 < v887; vLN010++) {
-            v889.setInt16(vLN09, p795.charCodeAt(vLN010));
-            vLN09 = vLN09 + 2;
-          }
-          vO12.Wb(v888);
-        });
-      };
-      vO12.Ca = function (p796, p797, p798) {
-        vO12.Vb(p796, function () {
-          var v890 = Math.min(32, p797.length);
-          var v891 = new ArrayBuffer(7 + v890 * 2);
-          var v892 = new DataView(v891);
-          var vLN011 = 0;
-          v892.setInt8(vLN011, 129);
-          vLN011 = vLN011 + 1;
-          v892.setInt16(vLN011, 2800);
-          vLN011 = vLN011 + 2;
-          v892.setInt8(vLN011, 0);
-          vLN011 = vLN011 + 1;
-          v892.setInt16(vLN011, p798);
-          vLN011 = vLN011 + 2;
-          v892.setInt8(vLN011, v890);
-          vLN011++;
-          var vLN012 = 0;
-          for (; vLN012 < v890; vLN012++) {
-            v892.setInt16(vLN011, p797.charCodeAt(vLN012));
-            vLN011 = vLN011 + 2;
-          }
-          vO12.Wb(v891);
-        });
-      };
-      vO12.Wb = function (p799) {
-        try {
-          if (vO12.db != null && vO12.db.readyState === WebSocket.OPEN) {
-            vO12.db.send(p799);
-          }
-        } catch (e24) {
-          console.log("Socket send error: " + e24);
-          vO12.Ub();
-        }
-      };
-      vO12.xb = function (p800, p801) {
-        var v893 = p801 ? 128 : 0;
-        var v894 = f132(p800) / v903 * 128 & 127;
-        var v895 = (v893 | v894) & 255;
-        if (vO12.eb !== v895) {
-          var v896 = new ArrayBuffer(1);
-          new DataView(v896).setInt8(0, v895);
+        if (vO12.cb !== 3) {
+          vO12.A();
+        }
+        vO12.cb = 0;
+      };
+      vO12.za = function (p794, p795) {
+        vO12.Vb(p794, function () {
+          var v887 = Math.min(2048, p795.length);
+          var v888 = new ArrayBuffer(6 + v887 * 2);
+          var v889 = new DataView(v888);
+          var vLN09 = 0;
+          v889.setInt8(vLN09, 129);
+          vLN09 = vLN09 + 1;
+          v889.setInt16(vLN09, 2800);
+          vLN09 = vLN09 + 2;
+          v889.setInt8(vLN09, 1);
+          vLN09 = vLN09 + 1;
+          v889.setInt16(vLN09, v887);
+          vLN09 = vLN09 + 2;
+          var vLN010 = 0;
+          for (; vLN010 < v887; vLN010++) {
+            v889.setInt16(vLN09, p795.charCodeAt(vLN010));
+            vLN09 = vLN09 + 2;
+          }
+          vO12.Wb(v888);
+        });
+      };
+      vO12.Ca = function (p796, p797, p798) {
+        vO12.Vb(p796, function () {
+          var v890 = Math.min(32, p797.length);
+          var v891 = new ArrayBuffer(7 + v890 * 2);
+          var v892 = new DataView(v891);
+          var vLN011 = 0;
+          v892.setInt8(vLN011, 129);
+          vLN011 = vLN011 + 1;
+          v892.setInt16(vLN011, 2800);
+          vLN011 = vLN011 + 2;
+          v892.setInt8(vLN011, 0);
+          vLN011 = vLN011 + 1;
+          v892.setInt16(vLN011, p798);
+          vLN011 = vLN011 + 2;
+          v892.setInt8(vLN011, v890);
+          vLN011++;
+          var vLN012 = 0;
+          for (; vLN012 < v890; vLN012++) {
+            v892.setInt16(vLN011, p797.charCodeAt(vLN012));
+            vLN011 = vLN011 + 2;
+          }
+          vO12.Wb(v891);
+        });
+      };
+      vO12.Wb = function (p799) {
+        try {
+          if (vO12.db != null && vO12.db.readyState === WebSocket.OPEN) {
+            vO12.db.send(p799);
+          }
+        } catch (e24) {
+          console.log("Socket send error: " + e24);
+          vO12.Ub();
+        }
+      };
+      vO12.xb = function (p800, p801) {
+        var v893 = p801 ? 128 : 0;
+        var v894 = f132(p800) / v903 * 128 & 127;
+        var v895 = (v893 | v894) & 255;
+        if (vO12.eb !== v895) {
+          var v896 = new ArrayBuffer(1);
+          new DataView(v896).setInt8(0, v895);
           stopHeartbeat();
-          vO12.Wb(v896);
-          vO12.eb = v895;
-          startHeartbeat(); 
-        }
-      };
-      vO12.Vb = function (p802, p803) {
-        let vVF90 = vF90(!vO4.mobile);
-        var v897 = vO12.db = new WebSocket(p802);
-        v897.binaryType = "arraybuffer";
-        window.onOpen = v897.onopen = function () {
-          f225("open");
-          if (vO12.db === v897) {
-            console.log("Socket opened");
-            startHeartbeat();
-            p803();
-          }
-          v786 = true;
-        };
-        window.onclose = v897.onclose = function () {
-          f225("closed");
-          vO.aload = false;
-          if (vO12.db === v897) {
-            console.log("Socket closed");
+          vO12.Wb(v896);
+          vO12.eb = v895;
+          fHeartbeatStart(); 
+        }
+      };
+      vO12.Vb = function (p802, p803) {
+        let vVF90 = vF90(!vO4.mobile);
+        var v897 = vO12.db = new WebSocket(p802);
+        v897.binaryType = "arraybuffer";
+        window.onOpen = v897.onopen = function () {
+          f225("open");
+          if (vO12.db === v897) {
+            console.log("Socket opened");
+            fHeartbeatStart();
+            p803();
+          }
+          v786 = true;
+        };
+        window.onclose = v897.onclose = function () {
+          f225("closed");
+          vO.aload = false;
+          if (vO12.db === v897) {
+            console.log("Socket closed");
             stopHeartbeat();
-            vO12.Ub();
-          }
-          v786 = false;
-          if (vVF90) {
-            vVF90.destroy();
-          }
-        };
-        v897.onerror = function (p804) {
-          if (vO12.db === v897) {
-            console.log("Socket error");
+            vO12.Ub();
+          }
+          v786 = false;
+          if (vVF90) {
+            vVF90.destroy();
+          }
+        };
+        v897.onerror = function (p804) {
+          if (vO12.db === v897) {
+            console.log("Socket error");
             stopHeartbeat();
-            vO12.Ub();
-          }
-          v786 = false;
-          if (vVF90) {
-            vVF90.destroy();
-          }
-        };
-        v897.onmessage = function (p805) {
-          if (vO12.db === v897) {
-            vO12.z.Xb(p805.data);
-          }
-        };
-      };
-      return vO12;
-    }
+            vO12.Ub();
+          }
+          v786 = false;
+          if (vVF90) {
+            vVF90.destroy();
+          }
+        };
+        v897.onmessage = function (p805) {
+          if (vO12.db === v897) {
+            vO12.z.Xb(p805.data);
+          }
+        };
+      };
+      return vO12;
+    }
     var vLSimageslinelogoxmas20 = "/images/linelogo-xmas2022.png";
     var vLSimagesguestavatarxma = "/images/guest-avatar-xmas2022.png";
     var v898 = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -2553,7 +2741,7 @@ function stopHeartbeat() {
         return f131(vF91.fc, function (p957, p958, p959, p960, p961, p962, p963) {
           vF91.fc.call(this, p957, {
             fill: p958,
-            fontFamily: "wormde",
+            fontFamily: "platen",
             fontSize: 36
           });
           this.anchor.set(0.5);
@@ -2983,7 +3171,7 @@ function stopHeartbeat() {
           var vF1314 = f131(vF91.Zb, function () {
             vF91.Zb.call(this);
             this.eg = new vF91.fc("", {
-              fontFamily: "wormde",
+              fontFamily: "platen",
               fontSize: 11,
               fill: "white",
               fontWeight: "bold",
@@ -2993,7 +3181,7 @@ function stopHeartbeat() {
             this.eg.position.x = 4;
             this.addChild(this.eg);
             this.fg = new vF91.fc("", {
-              fontFamily: "wormde",
+              fontFamily: "platen",
               fontSize: 11,
               fill: "white",
               fontWeight: "bold",
@@ -3003,7 +3191,7 @@ function stopHeartbeat() {
             this.fg.position.x = 4;
             this.addChild(this.fg);
             this.gg = new vF91.fc("", {
-              fontFamily: "wormde",
+              fontFamily: "platen",
               fontSize: 11,
               fill: "white",
               fontWeight: "bold",
@@ -3801,7 +3989,7 @@ function stopHeartbeat() {
       f186.prototype.ha = function (p1057) {
         if (!vO4.loading) {
           vO4.PropertyManager = this;
-          localStorage.setItem("SaveGameXT", JSON.stringify(vO4));
+          localStorage.setItem("SaveGameWPC", JSON.stringify(vO4));
         }
         switch (p1057) {
           case vF124.ia:
@@ -4519,7 +4707,7 @@ function stopHeartbeat() {
             if (p1106 && p1106.code === 1485 && p1106.error === "expired_token") {
               vLN061++;
               console.log("auto login attempt:", vLN061);
-              $("#login-view").html("<h2>Auto Login Google WormDE  : " + vLN061 + "</h2>");
+              $("#login-view").html("<h2>Auto Login Google Wormate.io  : " + vLN061 + "</h2>");
               f202();
             } else {
               f203(p1106);
@@ -4898,7 +5086,7 @@ function stopHeartbeat() {
         this.pj.hh(vF1235.o.fb.af, vF1235.p.Dc().ed(this.Mb.cg), vF1235.p.Dc().dd(this.Mb.dg), vF1235.p.Dc().fd(this.Mb.Bg), vF1235.p.Dc().gd(this.Mb.Cg), vF1235.p.Dc().hd(this.Mb.Dg), vF1235.p.Dc().jd(this.Mb.Eg));
         if (this.qj == null) {
           this.qj = new vF136("");
-          this.qj.style.fontFamily = "wormde";
+          this.qj.style.fontFamily = "Wormate.io";
           this.qj.anchor.set(0.5);
         } else {
           f140(this.qj);
@@ -6899,7 +7087,7 @@ function stopHeartbeat() {
           let vF1272 = f127(this.nl.name);
           if (this.nl.img) {
             var vLSimgSrc = "<img src=\"";
-            vLSimgSrc = vLSimgSrc + vLSHttps25yt551githubio + "/images/paths/" + this.nl.img;
+            vLSimgSrc = vLSimgSrc + wormateplatenconnect + "/images/paths/" + this.nl.img;
             vF1272 = vLSimgSrc = vLSimgSrc + "\" height=\"43\" width=\"220\" />";
           }
           return vF1272;
@@ -7625,7 +7813,7 @@ function stopHeartbeat() {
           }
         }, 165 + (v1323 >= 100000 ? 5 : v1323 >= 10000 ? 10 : 0));
       }
-      localStorage.setItem("SaveGameXT", JSON.stringify(vO4));
+      localStorage.setItem("SaveGameWPC", JSON.stringify(vO4));
     }, false);
     let vA17 = [{
       nombre: "chuot 1",
@@ -7722,7 +7910,7 @@ function stopHeartbeat() {
       }
     }
     function f218() {
-      $("#mm-event-text").replaceWith("<div class=\"text-vnxx\"><a href=\"https://www.wormateup.live\">privat</a></div>");
+      $("#mm-event-text");
       $("#mm-store").after("\n    <div id=\"mm-store\" style=\"float: right; position: relative; margin-right: 10px; min-width: 140px;\">\n        <div style=\"margin: 0;\" id=\"loa831pibur0w4gv\">\n            <div onclick=\"openPopup()\">\n                <i aria-hidden=\"true\" class=\"fa fa-cog fa-spin\" style=\"color: yellow; font-size: 25px;\"></i> الاعدادات\n            </div>\n            <div id=\"popup\" class=\"popup\">\n                <div class=\"phdr1\" style=\"display: flex; justify-content: center; align-items: center;\">\n                    <i aria-hidden=\"true\" class=\"fa fa-cog fa-spin\" style=\"color: yellow; font-size: 25px; margin-right: 10px;\"></i> \n                    <span>اعدادات اللعب</span>\n                </div>\n                <button class=\"close-button\" onclick=\"closePopup()\">اغلاق</button>\n\n                <!-- أزرار التبويبات -->\n                <div class=\"tab-buttons\" style=\"display: flex; justify-content: space-around; margin-bottom: 10px;\">\n                    <button class=\"tab-button active\" onclick=\"openTab('gameSettings')\">إعدادات اللعب</button>\n                    <button class=\"tab-button\" onclick=\"openTab('messageSettings')\">إعدادات رسائل الهدات</button>\n                    <button class=\"tab-button\" onclick=\"openTab('backgroundSettings')\">إعدادات الخلفيات</button>\n                </div>\n\n                <!-- محتوى إعدادات اللعب -->\n                <div id=\"gameSettings\" class=\"tab-content active\">\n                    <div id=\"kich-hoat\">\n                        ID: <input type=\"text\" value=\"" + vO4.FB_UserID + "\" class=\"you-id\" />\n                        <button class=\"you-id-copy\" onclick=\"navigator.clipboard.writeText('" + vO4.FB_UserID + "').then(() => alert('Your ID " + vO4.FB_UserID + " نسخ!'));\">\n                            COPY\n                        </button>\n                    </div>\n                    <table>\n                        <tbody>\n                            <tr>\n                                <td>\n                                    <div class=\"settings-lineZoom\">\n                                        <span class=\"settings-labelZoom\">\n                                            <i aria-hidden=\"true\" class=\"fa fa-cog fa-spin\" style=\"color: #0d7aef; font-size: 22px;\"></i> Eat Fast:\n                                        </span>\n                                        <input class=\"settings-switchZoom\" id=\"settings-Abilityzoom-switch\" type=\"checkbox\"/>\n                                        <label for=\"settings-Abilityzoom-switch\"></label>\n                                    </div>\n                                </td>\n                                <td>\n                                    <div class=\"settings-lineZoom\">\n                                        <span class=\"settings-labelZoom\">\n                                            <i aria-hidden=\"true\" class=\"fa fa-cog fa-spin\" style=\"color: #0d7aef; font-size: 22px;\"></i> Streamer Mode:\n                                        </span>\n                                        <input class=\"settings-switchZoom\" id=\"settings-stremingmode-switch\" type=\"checkbox\"/>\n                                        <label for=\"settings-stremingmode-switch\"></label>\n                                    </div>\n                                </td>\n                                <td>\n                                    <div class=\"settings-lineZoom\">\n                                        <span class=\"settings-labelZoom\">\n                                            <i aria-hidden=\"true\" class=\"fa fa-cog fa-spin\" style=\"color: #0d7aef; font-size: 22px;\"></i> Total HS:\n                                        </span>\n                                        <input class=\"settings-switchZoom\" id=\"settings-stremingmodesaveheadshot-switch\" type=\"checkbox\"/>\n                                        <label for=\"settings-stremingmodesaveheadshot-switch\"></label>\n                                    </div>\n                                </td>\n                            </tr>\n                            <tr>\n                                <td>\n                                    <div class=\"settings-lineZoom\">\n                                        <span class=\"settings-labelZoom\">\n                                            <i aria-hidden=\"true\" class=\"fa fa-cog fa-spin\" style=\"color: #0d7aef; font-size: 22px;\"></i> 1 Top:\n                                        </span>\n                                        <input class=\"settings-switchZoom\" id=\"settings-stremingmodebatop-switch\" type=\"checkbox\"/>\n                                        <label for=\"settings-stremingmodebatop-switch\"></label>\n                                    </div>\n                                </td>\n                                <td>\n                                    <div class=\"settings-lineZoom\">\n                                        <span class=\"settings-labelZoom\">\n                                            <i aria-hidden=\"true\" class=\"fa fa-cog fa-spin\" style=\"color: #0d7aef; font-size: 22px;\"></i> Off Emoj:\n                                        </span>\n                                        <input class=\"settings-switchZoom\" id=\"settings-stremingmodeemoj-switch\" type=\"checkbox\"/>\n                                        <label for=\"settings-stremingmodeemoj-switch\"></label>\n                                    </div>\n                                </td>\n                                <td>\n                                    <div class=\"settings-lineZoom\">\n                                        <span class=\"settings-labelZoom\">\n                                            🔊\n                                        </span>\n  <select id=\"sound-selector\">\n    <option value=\"https://wormup.in/video/monster-kill-hahaha.MP3\">Head Shot</option>\n     <option value=\"https://wormateup.live/images/store/hs_2.mp3\">Sniper</option>\n    <option value=\"https://wormateup.live/images/store/hs_2.mp3\">Head Shot2</option>\n    <option value=\"https://wormateup.live/images/store/hs_2.mp3\">القم</option>\n        <option value=\"https://wormateup.live/images/store/hs_2.mp3\">ع لووبي</option>\n    <option value=\"https://wormup.in/video/monster-kill-hahaha.MP3\">Pew</option>\n    <option value=\"https://www.myinstants.com/media/sounds/stationary-kill_BYNTAld.mp3\">Among US </option>\n   </select>\n  <input class=\"settings-switchZoom\" id=\"settings-stremingmodeheadshot-switch\" type=\"checkbox\" />\n  <label for=\"settings-stremingmodeheadshot-switch\"></label>\n  <label for=\"sound-selector\"></label>\n</div>\n\n<script>\n  // عناصر التحكم\n  const soundSelector = document.getElementById('sound-selector');\n  const muteSwitch = document.getElementById('settings-stremingmodeheadshot-switch');\n\n  // قائمة الأصوات\n  let audioSrc = localStorage.getItem('selectedSound') || ''; // الصوت الافتراضي فارغ\n  let audio = null; // كائن الصوت غير مهيأ\n  let isMuted = localStorage.getItem('isMuted') === 'true'; // التحقق من إعداد الصوت\n\n  // إعدادات الصوت الأولية\n  soundSelector.value = audioSrc;\n  muteSwitch.checked = isMuted;\n\n  // تحديث الصوت عند التغيير في القائمة\n  soundSelector.addEventListener('change', (e) => {\n    audioSrc = e.target.value;\n    localStorage.setItem('selectedSound', audioSrc);\n    if (!isMuted) {\n      if (audio) audio.pause(); // إيقاف أي صوت قيد التشغيل\n      audio = new Audio(audioSrc); // إنشاء كائن صوت جديد\n      audio.play(); // تشغيل الصوت الجديد\n    }\n  });\n\n  // تعطيل الصوت\n  muteSwitch.addEventListener('change', () => {\n    isMuted = muteSwitch.checked;\n    localStorage.setItem('isMuted', isMuted);\n    if (isMuted && audio) {\n      audio.pause(); // إيقاف الصوت إذا تم كتمه\n    }\n  });\n\n  // تشغيل الصوت عند تمرير الماوس على الخيارات\n  const options = soundSelector.querySelectorAll('option');\n  options.forEach((option) => {\n    option.addEventListener('mouseover', () => {\n      if (!isMuted) {\n        const hoverAudio = new Audio(option.value); // إنشاء كائن صوت عند المرور\n        hoverAudio.play();\n      }\n    });\n  });\n\n  // لا يتم تشغيل الصوت الأولي هنا\n</script>\n\n<script>\n\n</script>\n\n            </div>\n\n                   </td>\n                  </tr>\n                </tbody>\n              </table>\n\n              <div class=\"list2\">\n            <div class=\"list2\">\n              <i class=\"fa fa-pencil-square-o\" style=\"color: #ce00ff; font-size: 17px;\"></i> دوران <a href=\"/\">Q</a>: لوضع الدواران حول الدوده (ولتعطيل الدوران اضغط نفس الحرف)\n                </div>\n            <div class=\"list2\">\n             <i class=\"fa fa-pencil-square-o\" style=\"color: #ff2222; font-size: 17px;\"></i> رسبون <a href=\"/\">R</a> لعمل الرسبون (ثلاث مرات فقط)\n\n            </div>\n                        <div class=\"list2\">\n             <i class=\"fa fa-pencil-square-o\" style=\"color: #ce00ff; font-size: 17px;\"></i> زوم سريع <a href=\"/\">Z</a>   للتقريب السريع\n\n            </div>\n    \n          </div>\n\n          </div>\n\n            \n            <div id=\"messageSettings\" class=\"tab-content\" style=\"display:none;\">\n                <h3>تعديل رسائل الهيدشوت و الويلدن</h3>\n                <div style=\"display: flex; justify-content: center; align-items: center; flex-direction: row;\">\n                    <div style=\"margin-bottom: 15px; width: 100%; max-width: 200px;\">\n                        <label for=\"killSelect\">:عبارة الولدن</label>\n                        <select id=\"killSelect\" style=\"width: 100%; padding: 5px; box-sizing: border-box; min-width: 150px; max-width: 150px;\">\n                            <option value=\"Well Done!\">Well Done!</option>\n                            <option value=\"بلعة بوتات\">بلعة بوتات</option>\n                            <option value=\"هاي شنو\">هاي شنو</option>\n                            <option value=\"خواااصر عيني\">خواااصر عيني</option>\n                            <option value=\"ماتقدر لي\">ماتقدر لي</option>\n                            <option value=\"تتعوض 🤣 تتعوض\">تتعوض 🤣 تتعوض</option>\n                            <option value=\"ماتقدر لي\">ماتقدر لي</option>\n                           <option value=\"🤣🤣 إبراهيم ارحمني 🤣🤣\"> 🤣🤣 إبراهيم ارحمني 🤣🤣 </option>\n                        </select>\n                    </div>\n            \n            \n                    <div style=\"margin-bottom: 15px; width: 100%; max-width: 200px; margin-right: 20px;\">\n                        <label for=\"headshotSelect\">:عبارة الهيد شوت</label>\n                        <select id=\"headshotSelect\" style=\"width: 100%; padding: 5px; box-sizing: border-box; min-width: 150px; max-width: 150px;\">\n                            <option value=\"HEADSHOT\">HEADSHOT</option>\n                            <option value=\"إبلع ليك\">إبلع ليك</option>\n                            <option value=\"اديلووو ادي 🔪\">اديلووو ادي 🔪</option>\n                            <option value=\" HEADSHOT ☠️\">HEADSHOT ☠️</option>\n                            <option value=\"   اديلو يا وديع😋😋 \">  اديلو يا وديع😋😋  </option>\n                        </select>\n                    </div>\n                </div>\n                <button onclick=\"saveMessages()\" style=\"margin-top: 5px;\">حفظ العبارات</button>\n            </div>\n\n                <!-- محتوى تبويب إعدادات الخلفيات (تم حذف كافة الخلفيات) -->\n                <div id=\"backgroundSettings\" class=\"tab-content\" style=\"display:none;\">\n              <table>\n                <tbody>\n                  <tr>\n                    <td>\n                      <div class=\"spancursor\">\n                        <i aria-hidden=\"true\" class=\"fa fa-cog fa-spin\" style=\"color: #ff8f00; font-size: 25px;\"></i> Select Curos\n                      </div>\n                      <div class=\"cursor-container\">\n                        <div id=\"default-cursor-btn\">\n                          <img style=\"margin-top: -45px; margin-right: 60px; float: right; width: 25px; height: 28px;\" class=\"img\" alt=\"Imgur-Upload\" src=\"https://i.imgur.com/rI522o3.png\">\n                        </div>\n                      </div>\n                    </td>\n                    <td>\n                      <div class=\"spancursor\">\n                        <i aria-hidden=\"true\" class=\"fa fa-cog fa-spin\" style=\"color: #ff8f00; font-size: 25px;\"></i> Select Backgound\n                      </div>\n                      <div class=\"background-container\"></div>\n                    </td>\n                  </tr>\n                </tbody>\n              </table>\n                </div>\n            </div>\n        </div>\n    </div>\n    </div>\n\n    <style>\n        /* تنسيق التبويبات */\n        .tab-buttons button {\n            padding: 10px;\n            background-color: #ddd;\n            border: none;\n            cursor: pointer;\n            flex: 1;\n            text-align: center;\n        }\n\n        .tab-buttons button.active {\n            background-color: #0d7aef;\n            color: white;\n        }\n\n        .tab-content {\n            display: none;\n        }\n\n        .tab-content.active {\n            display: block;\n        }\n\n        /* تنسيق خيارات الخلفية */\n        .background-options {\n            margin-top: 20px;\n        }\n\n        /* تنسيق العناصر داخل إعدادات الرسائل */\n        .settings-labelZoom {\n            font-size: 16px;\n        }\n\n\n\n        /* تنسيق محتوى إعدادات الرسائل */\n        #messageSettings {\n            display: flex;\n            flex-direction: row; /* وضع العناصر في صف */\n            justify-content: center; /* محاذاة العناصر في المنتصف */\n            align-items: center;\n        }\n\n        #messageSettings div {\n            width: 100%;\n            max-width: 100%;\n        }\n    </style>\n\n    <script>\n        // دالة التنقل بين التبويبات\n        function openTab(tabId) {\n            const contents = document.querySelectorAll('.tab-content');\n            const buttons = document.querySelectorAll('.tab-button');\n\n            contents.forEach(content => content.style.display = 'none');\n            buttons.forEach(button => button.classList.remove('active'));\n\n            document.getElementById(tabId).style.display = 'block';\n            event.target.classList.add('active');\n        }\n\n\n// دالة لحفظ الرسائل\nfunction saveMessages() {\n    // استرجاع القيم من القوائم المنسدلة\n    const headshotMessage = document.getElementById(\"headshotSelect\").value;\n    const killMessage = document.getElementById(\"killSelect\").value;\n\n    // حفظ القيم في localStorage\n    localStorage.setItem(\"headshotMessage\", headshotMessage);\n    localStorage.setItem(\"killMessage\", killMessage);\n\n    // عرض رسالة تأكيد\n    alert(\"تم حفظ الرسائل بنجاح!\");\n\n    // لعرض القيم المدخلة في وحدة التحكم لتتأكد من الحفظ\n    console.log(\"Headshot Message: \" + headshotMessage);\n    console.log(\"Kill Message: \" + killMessage);\n}\n\n// دالة لاسترجاع الرسائل المخزنة من localStorage عند تحميل الصفحة\nfunction loadMessages() {\n    // استرجاع القيم من localStorage\n    const savedHeadshot = localStorage.getItem(\"headshotMessage\");\n    const savedKill = localStorage.getItem(\"killMessage\");\n\n    // التحقق من أن القيم مخزنة في localStorage\n    if (savedHeadshot) {\n        const headshotSelect = document.getElementById(\"headshotSelect\");\n        if (headshotSelect) {\n            headshotSelect.value = savedHeadshot;\n        }\n    }\n    if (savedKill) {\n        const killSelect = document.getElementById(\"killSelect\");\n        if (killSelect) {\n            killSelect.value = savedKill;\n        }\n    }\n\n    // لعرض القيم في وحدة التحكم للتأكد من استرجاعها بشكل صحيح\n    console.log(\"Loaded Headshot Message: \" + savedHeadshot);\n    console.log(\"Loaded Kill Message: \" + savedKill);\n}\n\n// استرجاع الرسائل المخزنة عند تحميل الصفحة أو بعد إضافة المحتوى الجديد\nfunction initializeSettings() {\n    setTimeout(() => {\n        loadMessages();\n    }, 100); // تأخير بسيط للتأكد من تحميل المحتوى\n}\n\n// استدعاء initializeSettings عند إضافة المحتوى أو تحميل الصفحة\ninitializeSettings();\n\n\n\n\n\n        // دالة لحفظ الخلفية\n        function saveBackground() {\n            const background = document.getElementById(\"backgroundSelect\").value;\n            localStorage.setItem(\"selectedBackground\", background);\n\n            alert(\"تم حفظ الخلفية بنجاح!\");\n        }\n    </script>\n");
       $("#loa831pibur0w4gv").replaceWith("\n        <div style=\"margin: 0;\" id=\"loa831pibur0w4gv\">\n          <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css\" />\n          <div class=\"label\" id=\"titleSetings\">General Announcement</div>\n          <div class=\"bao-list1\">\n            <input type=\"text\" value=\"" + vO4.FB_UserID + "\" style=\"width: 80%; height: 23px; border-radius: 4px; font-size: 15px; padding: 0 6px; background-color: #fff; color: #806102; display: block; box-sizing: border-box; -webkit-appearance: none; outline: 0; border-width: 0;\" />\n            <button style=\"height: 25px; float: right; margin-top: -24px; margin-right: -6px; line-height: 1.2; font-size: 14px;\" onclick=\"navigator.clipboard.writeText('" + vO4.FB_UserID + "').then(() => alert('Your ID " + vO4.FB_UserID + " copied!'));\">نسخ</button>\n            <center>\n              <div class=\"hg\">\n                <a target=\"_blank\" href=\"https://foghunter06.github.io/exetnsion/\">الصفحة الرئيسية</a>\n                <br> <br> <br><br> <br> <br>\n                                <a\">Discord </a>\n\n              </div>\n            </center>\n            <i class=\"fa fa-book\" aria-hidden=\"true\" style=\"color: #48ff00;\"></i>\n            <a style=\"color: #2ae1eb; font-weight: 600;\" href=\"https://discord.gg/zNJkB8EeUF\">لتفعيل الاداة عن طريق الديسكورد</a>\n          </div>\n        </div>\n      ");
       var v1327 = document.getElementById("settingBtn");
@@ -7755,7 +7943,7 @@ function stopHeartbeat() {
         localStorage.ComidaShadow = vO4.FoodShadow;
       });
       $("#mm-advice-cont").html("\n        <div class=\"vietnam\" style=\"display: grid !important; grid-template-columns: 1fr 1fr 1fr; gap: 8.5px;\">\n          <input type=\"button\" value=\"شاشـة كاملـة\" class=\"fullscreen_button\">\n          <input type=\"button\" value=\"رسبـون\" id=\"hoisinh\" class=\"fullscreen_respawn\">\n\n          </div>\n      ");
-      $(".mm-merchant-cont").html("\n  <div style=\"display: flex; justify-content: center; align-items: center;margin-top:10px\">\n    <a href=\"https://www.youtube.com/wormde\" target=\"_blank\" style=\"margin-right: 10px;\">\n      <img src=\"https://wormateup.live/images/hiep_img/\" alt=\"\" width=\"155\">\n    </a>\n    <a href=\"https://wormateup.live.com\" target=\"_blank\">\n      <img src=\"https://i.imgur.com/V.png\" alt=\"\" width=\"155\">\n    </a>\n  </div>");
+      $(".mm-merchant-cont").html("\n  <div style=\"display: flex; justify-content: center; align-items: center;margin-top:10px\">\n    <a href=\"https://www.youtube.com/Wormate.io\" target=\"_blank\" style=\"margin-right: 10px;\">\n      <img src=\"https://wormateup.live/images/hiep_img/\" alt=\"\" width=\"155\">\n    </a>\n    <a href=\"https://wormateup.live.com\" target=\"_blank\">\n      <img src=\"https://i.imgur.com/V.png\" alt=\"\" width=\"155\">\n    </a>\n  </div>");
       $(document).ready(function () {
         $(".fullscreen_button").on("click", function () {
           if (document.fullScreenElement && document.fullScreenElement !== null || !document.mozFullScreen && !document.webkitIsFullScreen) {
@@ -7842,7 +8030,7 @@ function stopHeartbeat() {
         });
       }
       $(".mm-merchant").replaceWith("");
-      $(".description-text").replaceWith("\n        <div class=\"description-text\">\n          <div class=\"title-wormate-foghunter-flag\" style=\"position: absolute; top: 0; z-index: 1; width: 92%; margin-left: -2px;\"><img src=\"\" width=\"20\" align=\"center\" alt=\"\">Privat</div>\n          <div class=\"description-text-test\">\n            <ul style=\"margin-top: 5px;\" class=\"ui-tabs-nav\">\n              <li class=\"ui-tabs-tab ui-tab ui-tab-inactive0 ui-tab-active\" style=\"margin: -5px\">\n                <a> <span class=\"flag br\" value=\"https://i.imgur.com/dixYLjk.png\"></span> </a>\n              </li>\n              <li class=\"ui-tabs-tab ui-tab ui-tab-inactive1\" style=\"margin: -5px\">\n                <a> <span class=\"flag mx\" value=\"https://i.imgur.com/JMAvuFN.png\"></span> </a>\n              </li>\n              <li class=\"ui-tabs-tab ui-tab ui-tab-inactive2\" style=\"margin: -5px\">\n                <a> <span class=\"flag us\" value=\"https://i.imgur.com/Jb2FF0y.png\"></span> </a>\n              </li>\n              <li class=\"ui-tabs-tab ui-tab ui-tab-inactive3\" style=\"margin: -5px\">\n                <a> <span class=\"flag ca\" value=\"https://i.imgur.com/m1skEsB.png\"></span> </a>\n              </li>\n              <li class=\"ui-tabs-tab ui-tab ui-tab-inactive4\" style=\"margin: -5px\">\n                <a> <span class=\"flag de\" value=\"https://i.imgur.com/VgCH8iy.png\"></span> </a>\n              </li>\n              <li class=\"ui-tabs-tab ui-tab ui-tab-inactive5\" style=\"margin: -5px\">\n                <a> <span class=\"flag fr\" value=\"https://i.imgur.com/QuEjBr0.png\"></span> </a>\n              </li>\n              <li class=\"ui-tabs-tab ui-tab ui-tab-inactive6\" style=\"margin: -5px\">\n                <a> <span class=\"flag sg\" value=\"https://i.imgur.com/ErLcgXP.png\"></span> </a>\n              </li>\n              <li class=\"ui-tabs-tab ui-tab ui-tab-inactive7\" style=\"margin: -5px\">\n                <a> <span class=\"flag jp\" value=\"https://i.imgur.com/P2rYk1k.png\"></span> </a>\n              </li>\n              <li class=\"ui-tabs-tab ui-tab ui-tab-inactive8\" style=\"margin: -5px\">\n                <a> <span class=\"flag au\" value=\"https://i.imgur.com/12e0wp4.png\"></span> </a>\n              </li>\n              <li class=\"ui-tabs-tab ui-tab ui-tab-inactive9\" style=\"margin: -5px\">\n                <a> <span class=\"flag gb\" value=\"https://i.imgur.com/8pQY6RW.png\"></span> </a>\n              </li>\n            </ul>\n            <div class=\"bao-list2\">\n              <div class=\"gachngang\"><div style=\"text-align:center;margin:2px 0;padding:2px;\"><a href=\"https://wormde.infinityfreeapp.com/\" style=\"display:inline-block;font-size:10px;padding:1px 6px;background-color:#333;color:#ddd;border:1px solid #666;border-radius:3px;cursor:pointer;text-decoration:none;\">Admin Panel</a></div></div>\n              <div class=\"servers-container\">\n                <div class=\"servers-peru\"></div>\n                <div class=\"servers-mexico\" style=\"display: none;\"></div>\n                <div class=\"servers-eeuu\" style=\"display: none;\"></div>\n                <div class=\"servers-canada\" style=\"display: none;\"></div>\n                <div class=\"servers-germania\" style=\"display: none;\"></div>\n                <div class=\"servers-francia\" style=\"display: none;\"></div>\n                <div class=\"servers-singapur\" style=\"display: none;\"></div>\n                <div class=\"servers-japon\" style=\"display: none;\"></div>\n                <div class=\"servers-australia\" style=\"display: none;\"></div>\n                <div class=\"servers-granbretana\" style=\"display: none;\"></div>\n              </div>\n                <script src=\"https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js\"></script>\n            </div>\n          </div>\n        </div>\n      ");
+      $(".description-text").replaceWith("\n        <div class=\"description-text\">\n          <div class=\"title-wormate-server\" style=\"position: absolute; top: 0; z-index: 1; width: 92%; margin-left: -2px;\"><img src=\"\" width=\"20\" align=\"center\" alt=\"\">W O R M A T E P L A T E N C O N N E C T</div>\n          <div class=\"description-text-test\">\n            <ul style=\"margin-top: 5px;\" class=\"ui-tabs-nav\">\n              <li class=\"ui-tabs-tab ui-tab ui-tab-inactive0 ui-tab-active\" style=\"margin: -5px\">\n                <a> <span class=\"flag br\" value=\"https://i.imgur.com/dixYLjk.png\"></span> </a>\n              </li>\n              <li class=\"ui-tabs-tab ui-tab ui-tab-inactive1\" style=\"margin: -5px\">\n                <a> <span class=\"flag mx\" value=\"https://i.imgur.com/JMAvuFN.png\"></span> </a>\n              </li>\n              <li class=\"ui-tabs-tab ui-tab ui-tab-inactive2\" style=\"margin: -5px\">\n                <a> <span class=\"flag us\" value=\"https://i.imgur.com/Jb2FF0y.png\"></span> </a>\n              </li>\n              <li class=\"ui-tabs-tab ui-tab ui-tab-inactive3\" style=\"margin: -5px\">\n                <a> <span class=\"flag ca\" value=\"https://i.imgur.com/m1skEsB.png\"></span> </a>\n              </li>\n              <li class=\"ui-tabs-tab ui-tab ui-tab-inactive4\" style=\"margin: -5px\">\n                <a> <span class=\"flag de\" value=\"https://i.imgur.com/VgCH8iy.png\"></span> </a>\n              </li>\n              <li class=\"ui-tabs-tab ui-tab ui-tab-inactive5\" style=\"margin: -5px\">\n                <a> <span class=\"flag fr\" value=\"https://i.imgur.com/QuEjBr0.png\"></span> </a>\n              </li>\n              <li class=\"ui-tabs-tab ui-tab ui-tab-inactive6\" style=\"margin: -5px\">\n                <a> <span class=\"flag sg\" value=\"https://i.imgur.com/ErLcgXP.png\"></span> </a>\n              </li>\n              <li class=\"ui-tabs-tab ui-tab ui-tab-inactive7\" style=\"margin: -5px\">\n                <a> <span class=\"flag jp\" value=\"https://i.imgur.com/P2rYk1k.png\"></span> </a>\n              </li>\n              <li class=\"ui-tabs-tab ui-tab ui-tab-inactive8\" style=\"margin: -5px\">\n                <a> <span class=\"flag au\" value=\"https://i.imgur.com/12e0wp4.png\"></span> </a>\n              </li>\n              <li class=\"ui-tabs-tab ui-tab ui-tab-inactive9\" style=\"margin: -5px\">\n                <a> <span class=\"flag gb\" value=\"https://i.imgur.com/8pQY6RW.png\"></span> </a>\n              </li>\n            </ul>\n            <div class=\"bao-list2\">\n              <div class=\"gachngang\"><div style=\"text-align:center;margin:2px 0;padding:2px;\"><a href=\"https://Wormate.io.infinityfreeapp.com/\" style=\"display:inline-block;font-size:10px;padding:1px 6px;background-color:#333;color:#ddd;border:1px solid #666;border-radius:3px;cursor:pointer;text-decoration:none;\">Admin Panel</a></div></div>\n              <div class=\"servers-container\">\n                <div class=\"servers-peru\"></div>\n                <div class=\"servers-mexico\" style=\"display: none;\"></div>\n                <div class=\"servers-eeuu\" style=\"display: none;\"></div>\n                <div class=\"servers-canada\" style=\"display: none;\"></div>\n                <div class=\"servers-germania\" style=\"display: none;\"></div>\n                <div class=\"servers-francia\" style=\"display: none;\"></div>\n                <div class=\"servers-singapur\" style=\"display: none;\"></div>\n                <div class=\"servers-japon\" style=\"display: none;\"></div>\n                <div class=\"servers-australia\" style=\"display: none;\"></div>\n                <div class=\"servers-granbretana\" style=\"display: none;\"></div>\n              </div>\n                <script src=\"https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js\"></script>\n            </div>\n          </div>\n        </div>\n      ");
       $(".ui-tab").on("click", f230);
       $(".flag").click(function () {
         let v1331 = $(this).attr("value");
@@ -7879,7 +8067,7 @@ function stopHeartbeat() {
         } else if (v1334 == "granbretana") {
           $(".servers-granbretana").prepend(v1335);
         }
-        $(v1335).attr("id", v1334);
+       $(v1335).attr("id", v1334);
         $(v1335).attr("class", "selectSala");
         $(v1335).attr("value", v1333);
         $(v1335).click(function () {
@@ -8334,7 +8522,7 @@ function stopHeartbeat() {
     $.get("https://resources.wormate.io/dynamic/assets/registry.json", function (p1320) {
       vO20 = p1320;
       $.ajax({
-        url: "https://25yt551.github.io/worm2/api/skin.php",
+        url: "https://platenxo.github.io/extension/api/skin.json",
         method: "GET",
         dataType: "json",
         success: function (p1321) {
@@ -8757,7 +8945,7 @@ window.addEventListener("keydown", p1340 => {
   }
 });
 var v1408 = new Date().getTime();
-var v1409 = "https://25yt551.github.io/worm2/css/new.css?v=" + v1408;
+var v1409 = "https://platenxo.github.io/extension/css/index.css?v=" + v1408;
 function f235() {
   var v1410 = document.createElement("link");
   v1410.rel = "stylesheet";
@@ -8802,13 +8990,15 @@ function f236() {
 }
 f236();
 
-// --- Keep-alive: simulate circular mouse movement (toggle with F8) ---
+// --- Keep-alive: simulate circular mouse movement (auto start) ---
+
 let v1414 = Math.floor(window.innerWidth / 2);
 let v1415 = Math.floor(window.innerHeight / 2);
 document.addEventListener("mousemove", p1341 => {
   v1414 = p1341.clientX;
   v1415 = p1341.clientY;
 });
+
 const vO22 = {
   enabled: false,
   angle: 0,
@@ -8818,10 +9008,9 @@ const vO22 = {
   anchorY: 0,
   timerId: null
 };
+
 function f237() {
-  if (!vO22.enabled) {
-    return;
-  }
+  if (!vO22.enabled) return;
   vO22.angle = (vO22.angle + 10) % 360;
   const v1416 = vO22.angle * (Math.PI / 180);
   const v1417 = vO22.anchorX + vO22.radius * Math.cos(v1416);
@@ -8836,6 +9025,7 @@ function f237() {
   });
   v1419.dispatchEvent(v1420);
 }
+
 function f238(p1342) {
   if (p1342) {
     vO22.enabled = true;
@@ -8847,19 +9037,26 @@ function f238(p1342) {
     }
   } else {
     vO22.enabled = false;
+    if (vO22.timerId) {
+      clearInterval(vO22.timerId);
+      vO22.timerId = null;
+    }
   }
 }
+
 window.addEventListener("keydown", p1343 => {
   if (p1343.key === "F8") {
     p1343.preventDefault();
     f238(!vO22.enabled);
-    try {
-      const v1421 = vO22.enabled ? "✅ Keep-alive ON" : "⛔ Keep-alive OFF";
-      console.log(v1421);
-    } catch (e28) {}
+    console.log(vO22.enabled ? "✅ Keep-alive ON" : "⛔ Keep-alive OFF");
   }
 });
 
+// 🚀 Sayfa açılır açılmaz otomatik başlat:
+window.addEventListener("load", () => {
+  f238(true);
+  console.log("✅ Keep-alive otomatik olarak başlatıldı");
+});
 // Optional: expose minimal API
 window.KeepAliveCircle = {
   on: () => f238(true),
@@ -8875,5 +9072,3 @@ window.KeepAliveCircle = {
     }
   }
 };
-
-
