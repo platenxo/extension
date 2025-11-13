@@ -1092,227 +1092,147 @@ var _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator 
                 Ua: 2,
                 Va: 3
             };
-            var self = {};
-            return self.Wa = 30, self.Xa = new Float32Array(100), self.Ya = 0, self.Za = 0, self.$a = 0, self._a = 0, self.ab = 0, self.bb = 0, self.cb = STATE.Sa, self.db = null, self.eb = 300, self.C = function () { }, self.B = function () { }, self.S = function () { }, self.A = function () { }, self.fb = new GameParams, self.z = null, self.N = null, self.gb = {}, self.hb = {}, self.ib = 12.5, self.jb = 40, self.kb = 1, self.lb = -1, self.mb = 1, self.nb = 1, self.ob = -1, self.pb = -1, self.qb = 1, self.rb = 1, self.sb = -1, self.O = 500, self.tb = 500, self.fb.ub = 500, self.N = new Worm(self.fb), self.a = function () {
-                self.N.vb(getApp().s.H.wb);
-                setInterval(function () {
-                    self.S(function (memberExpression, i) {
-                        self.xb(memberExpression, i);
-                    });
+           function createConnectionManager() {
+  const conn = {};
 
-                }, 10);
-            }, self.yb = function (b, dst, flow, name) {
-                self.lb = b;
-                self.mb = dst;
-                self.nb = flow;
-                self.ob = name;
-                self.zb();
-            }, self.Ab = function (navigatorType) {
-                self.kb = navigatorType;
-                self.zb();
-            }, self.zb = function () {
-                self.pb = self.lb - self.kb;
-                self.qb = self.mb + self.kb;
-                self.rb = self.nb - self.kb;
-                self.sb = self.ob + self.kb;
-            }, self.Qa = function (bt, dt) {
-                self.$a += dt;
-                self.Za -= .2 * self.Ya * dt;
-                self.z.Bb();
-                if (!(null == self.db || self.cb !== STATE.Ua && self.cb !== STATE.Va)) {
-                    self.Cb(bt, dt);
-                    self.jb = 4 + self.ib * self.N.Db;
-                }
-                var space = 1e3 / Math.max(1, dt);
-                var i = 0;
-                var key = 0;
-                for (; key < self.Xa.length - 1; key++) {
-                    i = i + self.Xa[key];
-                    self.Xa[key] = self.Xa[key + 1];
-                }
-                self.Xa[self.Xa.length - 1] = space;
-                self.Wa = (i + space) / self.Xa.length;
-            }, self.Eb = function (i, t) {
-                return i > self.pb && i < self.qb && t > self.rb && t < self.sb;
-            }, self.Cb = function (date, value) {
-                var mobLevel = self.$a + self.Za;
-                var pane = (mobLevel - self._a) / (self.ab - self._a);
-                self.N.Fb(date, value);
-                self.N.Gb(date, value, pane, self.Eb);
-                var now = 0;
-                var i;
-                for (i in self.hb) {
-                    var inst = self.hb[i];
-                    inst.Fb(date, value);
-                    inst.Gb(date, value, pane, self.Eb);
-                    if (inst.Hb && inst.Db > now) {
-                        now = inst.Db;
-                    }
-                    if (!(inst.Ib || !(inst.Jb < .005) && inst.Hb)) {
-                        inst.Kb();
-                        delete self.hb[inst.Mb.Lb];
-                    }
-                }
-                self.Ab(3 * now);
-                var name;
-                for (name in self.gb) {
-                    var params = self.gb[name];
-                    params.Fb(date, value);
-                    params.Gb(date, value, self.Eb);
-                    if (params.Nb && (params.Jb < .005 || !self.Eb(params.Ob, params.Pb))) {
-                        params.Kb();
-                        delete self.gb[params.Mb.Lb];
-                    }
-                }
-            }, self.Qb = function (table, _field) {
-                if (self.cb === STATE.Ta) {
-                    self.cb = STATE.Ua;
-                    self.C();
-                }
-                var x = getApp().j;
-                self.bb = table;
-                if (0 === table) {
-                    self._a = x - 95;
-                    self.ab = x;
-                    self.$a = self._a;
-                    self.Za = 0;
-                } else {
-                    self._a = self.ab;
-                    self.ab = self.ab + _field;
-                }
-                var mobLevel = self.$a + self.Za;
-                self.Ya = (mobLevel - self._a) / (self.ab - self._a);
-            }, self.Rb = function () {
-                if (self.cb === STATE.Ta || self.cb === STATE.Ua) {
-                    self.cb = STATE.Va;
-                    var target = self.db;
-                    setTimeout(function () {
-                        if (self.cb === STATE.Va) {
-                            self.cb = STATE.Sa;
-                        }
-                        if (null != target && target === self.db) {
-                            self.db.close();
-                            self.db = null;
-                        }
-                    }, 5e3);
-                    self.B();
-                }
-            }, self.ta = function () {
-                return self.cb !== STATE.Ua && (self.cb = STATE.Ta, self.z.Sb(), self.gb = {}, self.hb = {}, self.N.Tb(), null != self.db && (self.db.close(), self.db = null), true);
-            }, self.Ub = function () {
-                self.db = null;
-                self.z.Sb();
-                if (self.cb !== STATE.Va) {
-                    self.A();
-                }
-                self.cb = STATE.Sa;
-            }, self.za = function (database, data) {
-                self.Vb(database, function () {
-                    var value = Math.min(2048, data.length);
-                    var buffer = new ArrayBuffer(6 + 2 * value);
-                    var view = new DataView(buffer);
-                    var offset = 0;
-                    view.setInt8(offset, 129);
-                    offset = offset + 1;
-                    view.setInt16(offset, 2800);
-                    offset = offset + 2;
-                    view.setInt8(offset, 1);
-                    offset = offset + 1;
-                    view.setInt16(offset, value);
-                    offset = offset + 2;
-                    var i = 0;
-                    for (; i < value; i++) {
-                        view.setInt16(offset, data.charCodeAt(i));
-                        offset = offset + 2;
-                    }
-                    self.Wb(buffer);
-                });
-            }, self.Ca = function (reference, val, data) {
-                self.Vb(reference, function () {
-                    var value = Math.min(32, val.length);
-                    var buffer = new ArrayBuffer(7 + 2 * value);
-                    var view = new DataView(buffer);
-                    var offset = 0;
-                    view.setInt8(offset, 129);
-                    offset = offset + 1;
-                    view.setInt16(offset, 2800);
-                    offset = offset + 2;
-                    view.setInt8(offset, 0);
-                    offset = offset + 1;
-                    view.setInt16(offset, data);
-                    offset = offset + 2;
-                    view.setInt8(offset, value);
-                    offset++;
-                    var i = 0;
-                    for (; i < value; i++) {
-                        view.setInt16(offset, val.charCodeAt(i));
-                        offset = offset + 2;
-                    }
-                    self.Wb(buffer);
-                });
-            }, self.Wb = function (callback) {
-                try {
-                    if (null != self.db && self.db.readyState === WebSocket.OPEN) {
-                        self.db.send(callback);
-                    }
-                } catch (ticketID) {
-                    console.log("Socket send error: " + ticketID);
-                    self.Ub();
-                }
-            }, self.xb = function (variableNode, i) {
-                var this_bool = i ? 128 : 0;
-                var other_bool = normDir(variableNode) / _2PI * 128 & 127;
-                var value = 255 & (this_bool | other_bool);
-                if (self.eb !== value) {
-                    var buffer = new ArrayBuffer(1);
-                    (new DataView(buffer)).setInt8(0, value);
-                    self.Wb(buffer);
-                    self.eb = value;
-                }
-            }, self.Vb = function (url, onSuccess) {
-                /*if (RechekingPhone() == false) {
+  // Temel ayarlar
+  conn.updateIntervalMs = 500;
+  conn.network = new NetworkManager(conn.updateIntervalMs);
 
-                }*/
-                let c = loadJoy(!theoKzObjects.mobile);
-                var socket = self.db = new WebSocket(url);
-                socket.binaryType = "arraybuffer";
-                window.onOpen = socket.onopen = function () {
-                    setKillsCounts("open");
-                    if (self.db === socket) {
-                        console.log("Socket opened");
-                        onSuccess();
-                    }
-                    isPlaying = true;
-                };
-                window.onclose = socket.onclose = function () {
-                    setKillsCounts("closed");
-                    _wrmxt.aload = false;
-                    if (self.db === socket) {
-                        console.log("Socket closed");
-                        self.Ub();
-                    }
-                    isPlaying = false;
-                    if (c) {
-                        c.destroy();
-                    }
-                };
-                socket.onerror = function (event) {
-                    if (self.db === socket) {
-                        console.log("Socket error");
-                        self.Ub();
-                    }
-                    isPlaying = false;
-                    if (c) {
-                        c.destroy();
-                    }
-                };
-                socket.onmessage = function (event) {
-                    if (self.db === socket) {
-                        self.z.Xb(event.data);
-                    }
-                };
-            }, self;
-        }
+  // Başlatma fonksiyonu
+  conn.init = function () {
+    if (window.anApp?.s?.H?.wb) {
+      setInterval(() => {
+        conn.sendLoop((x, y) => conn.sendInput(x, y));
+      }, 10);
+    }
+  };
+
+  // Parametreleri ayarlama
+  conn.setBounds = function (x1, y1, x2, y2) {
+    conn.minX = x1;
+    conn.minY = y1;
+    conn.maxX = x2;
+    conn.maxY = y2;
+    conn.resetBounds();
+  };
+
+  conn.setSpeed = function (speed) {
+    conn.speed = speed;
+    conn.resetBounds();
+  };
+
+  conn.resetBounds = function () {
+    conn.leftBound = conn.minX - 1;
+    conn.rightBound = conn.maxY + 1;
+    conn.height = 0;
+  };
+
+  // FPS veya hız hesaplama
+  conn.updateStats = function (frameCount, deltaTime) {
+    conn.totalTime += deltaTime;
+    const fps = 1000 / Math.max(1, deltaTime);
+
+    // FPS ortalamasını hesapla
+    conn.fpsHistory.shift();
+    conn.fpsHistory.push(fps);
+    conn.avgFps = conn.fpsHistory.reduce((a, b) => a + b, 0) / conn.fpsHistory.length;
+  };
+
+  // Alan kontrolü
+  conn.isInsideBounds = function (x, y) {
+    return x > conn.leftBound && x < 1 && y > 1 && y < conn.rightBound;
+  };
+
+  // Nesneleri güncelleme
+  conn.updateObjects = function (x, y) {
+    for (let key in conn.objects) {
+      const obj = conn.objects[key];
+      obj.updatePosition(x, y);
+      if (obj.shouldRemove()) delete conn.objects[key];
+    }
+  };
+
+  // WebSocket başlatma
+  conn.connect = function (url, onConnected) {
+    const joy = loadJoy(true);
+    const socket = conn.socket = new WebSocket(url);
+    socket.binaryType = "arraybuffer";
+
+    socket.onopen = function () {
+      console.log("Socket opened");
+      onConnected();
+
+      // İlk mesaj
+      conn.sendInput(0, false);
+
+      // Keep-alive mesajları
+      conn.keepAliveTimer = setInterval(() => {
+        const buf = new ArrayBuffer(1);
+        new DataView(buf).setInt8(0, 44);
+        conn.sendBinary(buf);
+        conn.lastInputSentAt = performance.now();
+      }, Math.max(500, conn.keepAliveMs));
+    };
+
+    socket.onclose = function () {
+      console.log("Socket closed");
+      conn.cleanup();
+      if (joy) joy.destroy();
+    };
+
+    socket.onerror = function (err) {
+      console.error("Socket error:", err);
+      conn.cleanup();
+      if (joy) joy.destroy();
+    };
+
+    socket.onmessage = function (event) {
+      conn.handleMessage(event.data);
+    };
+  };
+
+  // İkili mesaj gönder
+  conn.sendBinary = function (buffer) {
+    try {
+      if (conn.socket?.readyState === WebSocket.OPEN) {
+        conn.socket.send(buffer);
+      }
+    } catch (err) {
+      console.error("Socket send error:", err);
+      conn.cleanup();
+    }
+  };
+
+  // Input (joystick) verisini gönder
+  conn.sendInput = function (value, pressed) {
+    if (!Number.isFinite(value)) value = 0;
+
+    const now = performance.now();
+    const shouldSendKeepAlive = now - conn.lastInputSentAt > (conn.keepAliveMs ?? 1000);
+
+    const flag = pressed ? 0x80 : 0x00;
+    const mapped = Math.floor((value / 100) * 128) & 0x7f;
+    const byte = (flag | mapped) & 0xff;
+
+    if (byte !== 0x12c || shouldSendKeepAlive) {
+      const buffer = new ArrayBuffer(1);
+      new DataView(buffer).setInt8(0, byte);
+      conn.sendBinary(buffer);
+      conn.lastInputSentAt = now;
+    }
+  };
+
+  // Temizlik (bağlantı kapatıldığında)
+  conn.cleanup = function () {
+    if (conn.keepAliveTimer) clearInterval(conn.keepAliveTimer);
+    conn.keepAliveTimer = null;
+    conn.socket = null;
+    console.log("Connection cleaned up");
+  };
+
+  return conn;
+}
         var LINE_LOGO_URL = "/images/linelogo-xmas2022.png",
             GUEST_AVATAR_URL = "/images/guest-avatar-xmas2022.png",
             isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream,
@@ -7193,3 +7113,4 @@ this.addCSS();  // CSS dosyasını ekliyoruz
 
 // Konsola mesaj yazdırıyoruz
 console.log("CSS Dosyası Başarıyla Yüklendi");
+
