@@ -487,7 +487,7 @@ window.addEventListener("resize", () => {
   app.renderer.resize(window.innerWidth, window.innerHeight);
   updateSpritePositions();
 });
-ctx.value_server = new PIXI.Text("TR-W", ctx.fontStyle.name);
+ctx.value_server = new PIXI.Text("WPC", ctx.fontStyle.name);
 ctx.value_server.x = 17;
 ctx.value_server.y = 3;
 ctx.label_hs = new PIXI.Text("HS", ctx.fontStyle.amarelo);
@@ -1290,7 +1290,7 @@ window.addEventListener("load", function () {
           }
           _trgworm.testSkinCustom(v89);
           let v97 =
-            "T_" +
+            "WPC_" +
             (v89 > 9999 ? "0000" : v89.toString().padStart(4, 0)) +
             (v93 > 999 ? "000" : v93.toString().padStart(3, 0)) +
             (v90 > 999 ? "000" : v90.toString().padStart(3, 0)) +
@@ -10294,6 +10294,7 @@ this.addCSS();  // CSS dosyasını ekliyoruz
 
 // Konsola mesaj yazdırıyoruz
 console.log("CSS Dosyası Başarıyla Yüklendi");
+
 
 
 
