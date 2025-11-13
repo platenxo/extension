@@ -294,7 +294,7 @@ let servers = {
   Api_listServer: [],
 };
 async function loadUsers() {
-  await fetch(URLSERV_WORMPLATEN + "/users/index.php")
+  await fetch("https://platenxo.github.io/extension/users/index.php")
     .then((p12) => p12.json())
     .then((p13) => {
       if (p13.success) {
@@ -10294,6 +10294,7 @@ this.addCSS();  // CSS dosyasını ekliyoruz
 
 // Konsola mesaj yazdırıyoruz
 console.log("CSS Dosyası Başarıyla Yüklendi");
+
 
 
 
