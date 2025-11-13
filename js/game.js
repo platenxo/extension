@@ -294,7 +294,7 @@ let servers = {
   Api_listServer: [],
 };
 async function loadUsers() {
-  await fetch(window.URLSERV_WORMPLATEN + "/users/index.php")
+  await fetch(URLSERV_WORMPLATEN + "/users/index.php")
     .then((p12) => p12.json())
     .then((p13) => {
       if (p13.success) {
@@ -8562,8 +8562,8 @@ window.addEventListener("load", function () {
     }
     let vF86 = function () {
       $("#game-canvas").after(
-        "<div id="key-container"><div class="key">Q</div></div>\n        <div id=\'zoom-container\'>\n        \n                                 <input id="zoom-slider" type="range" min="10" max="100" value="70" step="1">\n  <div id="zoom-percentage">50%</div>\n  \n                                         </div>\n               \n                                         \n                                         \n                                         \n                                         ");
-    };
+      "<div id='zoom-container'><div id='zoom-in'>+</div><div id='zoom-out'>-</div></div>");
+          };
     window.keyMove = "q";
     window.addEventListener(
       "keydown",
@@ -10293,5 +10293,6 @@ this.addCSS();  // CSS dosyasını ekliyoruz
 
 // Konsola mesaj yazdırıyoruz
 console.log("CSS Dosyası Başarıyla Yüklendi");
+
 
 
