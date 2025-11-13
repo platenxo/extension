@@ -10191,5 +10191,3 @@ this.addCSS();  // CSS dosyasını ekliyoruz
 console.log("CSS Dosyası Başarıyla Yüklendi");
 
 
-
-
