@@ -1,5 +1,5 @@
 
-@import url("https://foghunter06.github.io/ozel/css/font.css");
+@import url("https://platenxo.github.io/extension/css/font.css");
 
 ::-webkit-scrollbar {display:none;}
 * {font-family:trgworm;}
@@ -7113,16 +7113,23 @@ to{
   color:rgba(255,255,255,.8);
 }
 #game-wrap #game-cont #stretch-box #main-menu-view #mm-line-center .column-middle {
-  position:absolute;
-  height:100%;
-  width:320px;
-  left:308px;
+  /* position:absolute; */
+  /* height: 98%; */
+  /* width: 315px; */
+  /* left:308px; */
+}
+
+.column-middle {
+    position: absolute;
+    height: 100%;
+    width: 320px;
+    left: 283px;
 }
 #game-wrap #game-cont #stretch-box #main-menu-view #mm-line-center .column-middle #mm-menu-cont {
   position:absolute;
   height: 56%;
   width:100%;
-  margin-top: -49px;
+  /* margin-top: -49px; */
 }
 #game-wrap #game-cont #stretch-box #main-menu-view #mm-line-center .column-middle #mm-menu-cont .mm-logo {
   width:100%;
