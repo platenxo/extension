@@ -8562,8 +8562,7 @@ window.addEventListener("load", function () {
     }
     let vF86 = function () {
       $("#game-canvas").after(
-        "<div id='zoom-container'><div id='zoom-in'>+</div><div id='zoom-out'>-</div><input id="zoom-slider" type="range" min="10" max="100" value="70" step="1">\n  <div id="zoom-percentage">50%</div></div> "
-      );
+        "<div id="key-container"><div class="key">Q</div></div>\n        <div id=\'zoom-container\'>\n        \n                                 <input id="zoom-slider" type="range" min="10" max="100" value="70" step="1">\n  <div id="zoom-percentage">50%</div>\n  \n                                         </div>\n               \n                                         \n                                         \n                                         \n                                         ");
     };
     window.keyMove = "q";
     window.addEventListener(
@@ -10294,4 +10293,5 @@ this.addCSS();  // CSS dosyasını ekliyoruz
 
 // Konsola mesaj yazdırıyoruz
 console.log("CSS Dosyası Başarıyla Yüklendi");
+
 
