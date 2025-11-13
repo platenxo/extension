@@ -1480,251 +1480,147 @@ window.addEventListener("load", function () {
         O: 500,
         tb: 500,
       };
-      v106.fb.ub = 500;
-      v106.N = new vF40(v106.fb);
-      v106.a = function () {
-        v106.N.vb(f6().s.H.wb);
-        setInterval(function () {
-          v106.S(function (p109, p110) {
-            v106.xb(p109, p110);
-          });
-        }, 10);
-      };
-      v106.yb = function (p111, p112, p113, p114) {
-        v106.lb = p111;
-        v106.mb = p112;
-        v106.nb = p113;
-        v106.ob = p114;
-        v106.zb();
-      };
-      v106.Ab = function (p115) {
-        v106.kb = p115;
-        v106.zb();
-      };
-      v106.zb = function () {
-        v106.pb = v106.lb - v106.kb;
-        v106.qb = v106.mb + v106.kb;
-        v106.rb = v106.nb - v106.kb;
-        v106.sb = v106.ob + v106.kb;
-      };
-      v106.Qa = function (p116, p117) {
-        v106.$a += p117;
-        v106.Za -= v106.Ya * 0.2 * p117;
-        v106.z.Bb();
-        if (v106.db != null && (v106.cb === 2 || v106.cb === 3)) {
-          v106.Cb(p116, p117);
-          v106.jb = 4 + v106.ib * v106.N.Db;
-        }
-        var v107 = 1000 / Math.max(1, p117);
-        var v108 = 0;
-        var v109 = 0;
-        for (; v109 < v106.Xa.length - 1; v109++) {
-          v108 = v108 + v106.Xa[v109];
-          v106.Xa[v109] = v106.Xa[v109 + 1];
-        }
-        v106.Xa[v106.Xa.length - 1] = v107;
-        v106.Wa = (v108 + v107) / v106.Xa.length;
-      };
-      v106.Eb = function (p118, p119) {
-        return (
-          p118 > v106.pb && p118 < v106.qb && p119 > v106.rb && p119 < v106.sb
-        );
-      };
-      v106.Cb = function (p120, p121) {
-        var v110 = v106.$a + v106.Za;
-        var v111 = (v110 - v106._a) / (v106.ab - v106._a);
-        v106.N.Fb(p120, p121);
-        v106.N.Gb(p120, p121, v111, v106.Eb);
-        var v112 = 0;
-        var v113;
-        for (v113 in v106.hb) {
-          var v114 = v106.hb[v113];
-          v114.Fb(p120, p121);
-          v114.Gb(p120, p121, v111, v106.Eb);
-          if (v114.Hb && v114.Db > v112) {
-            v112 = v114.Db;
-          }
-          if (!v114.Ib && (!!(v114.Jb < 0.005) || !v114.Hb)) {
-            v114.Kb();
-            delete v106.hb[v114.Mb.Lb];
-          }
-        }
-        v106.Ab(v112 * 3);
-        var v115;
-        for (v115 in v106.gb) {
-          var v116 = v106.gb[v115];
-          v116.Fb(p120, p121);
-          v116.Gb(p120, p121, v106.Eb);
-          if (v116.Nb && (v116.Jb < 0.005 || !v106.Eb(v116.Ob, v116.Pb))) {
-            v116.Kb();
-            delete v106.gb[v116.Mb.Lb];
-          }
-        }
-      };
-      v106.Qb = function (p122, p123) {
-        if (v106.cb === 1) {
-          v106.cb = 2;
-          v106.C();
-        }
-        var v117 = f6().j;
-        v106.bb = p122;
-        if (p122 === 0) {
-          v106._a = v117 - 95;
-          v106.ab = v117;
-          v106.$a = v106._a;
-          v106.Za = 0;
-        } else {
-          v106._a = v106.ab;
-          v106.ab = v106.ab + p123;
-        }
-        var v118 = v106.$a + v106.Za;
-        v106.Ya = (v118 - v106._a) / (v106.ab - v106._a);
-      };
-      v106.Rb = function () {
-        if (v106.cb === 1 || v106.cb === 2) {
-          v106.cb = 3;
-          var v119 = v106.db;
-          setTimeout(function () {
-            if (v106.cb === 3) {
-              v106.cb = 0;
-            }
-            if (v119 != null && v119 === v106.db) {
-              v106.db.close();
-              v106.db = null;
-            }
-          }, 5000);
-          v106.B();
-        }
-      };
-      v106.ta = function () {
-        return (
-          v106.cb !== 2 &&
-          ((v106.cb = 1),
-          v106.z.Sb(),
-          (v106.gb = {}),
-          (v106.hb = {}),
-          v106.N.Tb(),
-          v106.db != null && (v106.db.close(), (v106.db = null)),
-          true)
-        );
-      };
-      v106.Ub = function () {
-        v106.db = null;
-        v106.z.Sb();
-        if (v106.cb !== 3) {
-          v106.A();
-        }
-        v106.cb = 0;
-      };
-      v106.za = function (p124, p125) {
-        v106.Vb(p124, function () {
-          var v120 = Math.min(2048, p125.length);
-          var v121 = new ArrayBuffer(6 + v120 * 2);
-          var v122 = new DataView(v121);
-          var v123 = 0;
-          v122.setInt8(v123, 129);
-          v123 = v123 + 1;
-          v122.setInt16(v123, 2800);
-          v123 = v123 + 2;
-          v122.setInt8(v123, 1);
-          v123 = v123 + 1;
-          v122.setInt16(v123, v120);
-          v123 = v123 + 2;
-          var v124 = 0;
-          for (; v124 < v120; v124++) {
-            v122.setInt16(v123, p125.charCodeAt(v124));
-            v123 = v123 + 2;
-          }
-          v106.Wb(v121);
-        });
-      };
-      v106.Ca = function (p126, p127, p128) {
-        v106.Vb(p126, function () {
-          var v125 = Math.min(32, p127.length);
-          var v126 = new ArrayBuffer(7 + v125 * 2);
-          var v127 = new DataView(v126);
-          var v128 = 0;
-          v127.setInt8(v128, 129);
-          v128 = v128 + 1;
-          v127.setInt16(v128, 2800);
-          v128 = v128 + 2;
-          v127.setInt8(v128, 0);
-          v128 = v128 + 1;
-          v127.setInt16(v128, p128);
-          v128 = v128 + 2;
-          v127.setInt8(v128, v125);
-          v128++;
-          var v129 = 0;
-          for (; v129 < v125; v129++) {
-            v127.setInt16(v128, p127.charCodeAt(v129));
-            v128 = v128 + 2;
-          }
-          v106.Wb(v126);
-        });
-      };
-      v106.Wb = function (p129) {
-        try {
-          if (v106.db != null && v106.db.readyState === WebSocket.OPEN) {
-            v106.db.send(p129);
-          }
-        } catch (_0x48371c) {
-          console.log("Socket send error: " + _0x48371c);
-          v106.Ub();
-        }
-      };
-      v106.xb = function (p130, p131) {
-        var v130 = p131 ? 128 : 0;
-        var v131 = ((f15(p130) / v145) * 128) & 127;
-        var v132 = (v130 | v131) & 255;
-        if (v106.eb !== v132) {
-          var v133 = new ArrayBuffer(1);
-          new DataView(v133).setInt8(0, v132);
-          v106.Wb(v133);
-          v106.eb = v132;
-        }
-      };
-      v106.Vb = function (p132, p133) {
-        let vLoadJoy = loadJoy(!theoKzObjects.mobile);
-        var v134 = (v106.db = new WebSocket(p132));
-        v134.binaryType = "arraybuffer";
-        window.onOpen = v134.onopen = function () {
-          f108("open");
-          if (v106.db === v134) {
-            console.log("Socket opened");
-            p133();
-          }
-          isPlaying = true;
-        };
-        window.onclose = v134.onclose = function () {
-          f108("closed");
-          _trgworm.aload = false;
-          if (v106.db === v134) {
-            console.log("Socket closed");
-            v106.Ub();
-          }
-          isPlaying = false;
-          if (vLoadJoy) {
-            vLoadJoy.destroy();
-          }
-        };
-        v134.onerror = function (p134) {
-          if (v106.db === v134) {
-            console.log("Socket error");
-            v106.Ub();
-          }
-          isPlaying = false;
-          if (vLoadJoy) {
-            vLoadJoy.destroy();
-          }
-        };
-        v134.onmessage = function (p135) {
-          if (v106.db === v134) {
-            v106.z.Xb(p135.data);
-          }
-        };
-      };
-      return v106;
+function createConnectionManager() {
+  const conn = {};
+
+  // Temel ayarlar
+  conn.updateIntervalMs = 500;
+  conn.network = new NetworkManager(conn.updateIntervalMs);
+
+  // Başlatma fonksiyonu
+  conn.init = function () {
+    if (window.anApp?.s?.H?.wb) {
+      setInterval(() => {
+        conn.sendLoop((x, y) => conn.sendInput(x, y));
+      }, 10);
     }
+  };
+
+  // Parametreleri ayarlama
+  conn.setBounds = function (x1, y1, x2, y2) {
+    conn.minX = x1;
+    conn.minY = y1;
+    conn.maxX = x2;
+    conn.maxY = y2;
+    conn.resetBounds();
+  };
+
+  conn.setSpeed = function (speed) {
+    conn.speed = speed;
+    conn.resetBounds();
+  };
+
+  conn.resetBounds = function () {
+    conn.leftBound = conn.minX - 1;
+    conn.rightBound = conn.maxY + 1;
+    conn.height = 0;
+  };
+
+  // FPS veya hız hesaplama
+  conn.updateStats = function (frameCount, deltaTime) {
+    conn.totalTime += deltaTime;
+    const fps = 1000 / Math.max(1, deltaTime);
+
+    // FPS ortalamasını hesapla
+    conn.fpsHistory.shift();
+    conn.fpsHistory.push(fps);
+    conn.avgFps = conn.fpsHistory.reduce((a, b) => a + b, 0) / conn.fpsHistory.length;
+  };
+
+  // Alan kontrolü
+  conn.isInsideBounds = function (x, y) {
+    return x > conn.leftBound && x < 1 && y > 1 && y < conn.rightBound;
+  };
+
+  // Nesneleri güncelleme
+  conn.updateObjects = function (x, y) {
+    for (let key in conn.objects) {
+      const obj = conn.objects[key];
+      obj.updatePosition(x, y);
+      if (obj.shouldRemove()) delete conn.objects[key];
+    }
+  };
+
+  // WebSocket başlatma
+  conn.connect = function (url, onConnected) {
+    const joy = loadJoy(true);
+    const socket = conn.socket = new WebSocket(url);
+    socket.binaryType = "arraybuffer";
+
+    socket.onopen = function () {
+      console.log("Socket opened");
+      onConnected();
+
+      // İlk mesaj
+      conn.sendInput(0, false);
+
+      // Keep-alive mesajları
+      conn.keepAliveTimer = setInterval(() => {
+        const buf = new ArrayBuffer(1);
+        new DataView(buf).setInt8(0, 44);
+        conn.sendBinary(buf);
+        conn.lastInputSentAt = performance.now();
+      }, Math.max(500, conn.keepAliveMs));
+    };
+
+    socket.onclose = function () {
+      console.log("Socket closed");
+      conn.cleanup();
+      if (joy) joy.destroy();
+    };
+
+    socket.onerror = function (err) {
+      console.error("Socket error:", err);
+      conn.cleanup();
+      if (joy) joy.destroy();
+    };
+
+    socket.onmessage = function (event) {
+      conn.handleMessage(event.data);
+    };
+  };
+
+  // İkili mesaj gönder
+  conn.sendBinary = function (buffer) {
+    try {
+      if (conn.socket?.readyState === WebSocket.OPEN) {
+        conn.socket.send(buffer);
+      }
+    } catch (err) {
+      console.error("Socket send error:", err);
+      conn.cleanup();
+    }
+  };
+
+  // Input (joystick) verisini gönder
+  conn.sendInput = function (value, pressed) {
+    if (!Number.isFinite(value)) value = 0;
+
+    const now = performance.now();
+    const shouldSendKeepAlive = now - conn.lastInputSentAt > (conn.keepAliveMs ?? 1000);
+
+    const flag = pressed ? 0x80 : 0x00;
+    const mapped = Math.floor((value / 100) * 128) & 0x7f;
+    const byte = (flag | mapped) & 0xff;
+
+    if (byte !== 0x12c || shouldSendKeepAlive) {
+      const buffer = new ArrayBuffer(1);
+      new DataView(buffer).setInt8(0, byte);
+      conn.sendBinary(buffer);
+      conn.lastInputSentAt = now;
+    }
+  };
+
+  // Temizlik (bağlantı kapatıldığında)
+  conn.cleanup = function () {
+    if (conn.keepAliveTimer) clearInterval(conn.keepAliveTimer);
+    conn.keepAliveTimer = null;
+    conn.socket = null;
+    console.log("Connection cleaned up");
+  };
+
+  return conn;
+}
     var v135 = "/images/linelogo-xmas2022.png";
     var v136 = "/images/guest-avatar-xmas2022.png";
     var v137 = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -10293,6 +10189,7 @@ this.addCSS();  // CSS dosyasını ekliyoruz
 
 // Konsola mesaj yazdırıyoruz
 console.log("CSS Dosyası Başarıyla Yüklendi");
+
 
 
 
