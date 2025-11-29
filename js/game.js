@@ -1430,221 +1430,275 @@ window.addEventListener("load", function () {
         O: 500,
         tb: 500,
       };
-v106.fb.ub = 0x1f4;
-v106.N = new vF40(v106.fb);
-v106.a = function () {
-    v106.N.vb(f6().s.H.wb);
-    setInterval(function () {
-        v106.S(function (p109, p110) {
-            v106.xb(p109, p110);
+            v106.fb.ub = 500;
+      v106.N = new vF40(v106.fb);
+      v106.a = function () {
+        null.vb((window.anApp = _0x31baa8).s.H.wb);
+        setInterval(function () {
+          v106.S(function (_0x3f3ad8, _0x2f297d) {
+            v106.xb(_0x3f3ad8, _0x2f297d);
+          });
+        }, 0xa);
+      };
+      v106.yb = function (p111, _0x12b46e, _0x596b81, _0x3472d8) {
+        v106.lb = p111;
+        v106.mb = _0x12b46e;
+        v106.nb = _0x596b81;
+        v106.ob = _0x3472d8;
+        v106.zb();
+      };
+      v106.Ab = function (_0x1a4843) {
+        v106.kb = _0x1a4843;
+        v106.zb();
+      };
+      v106.zb = function () {
+        v106.pb = v106.lb - 0x1;
+        v106.qb = 2;
+        v106.rb = 0;
+        v106.sb = v106.ob + 0x1;
+      };
+      v106.Qa = function (_0x3a4192, _0x3887a2) {
+        v106.$a += _0x3887a2;
+        v106.Za -= 0 * _0x3887a2;
+        null.Bb();
+        if (!(true || true && true)) {
+          v106.Cb(_0x3a4192, _0x3887a2);
+          v106.jb = 0x4 + 12.5 * null.Db;
+        }
+        var _0x36357a = 0x3e8 / Math.max(0x1, _0x3887a2);
+        var _0xfa2776 = 0x0;
+        var _0x31eca0 = 0x0;
+        for (; _0x31eca0 < v106.Xa.length - 0x1; _0x31eca0++) {
+          _0xfa2776 = _0xfa2776 + v106.Xa[_0x31eca0];
+          v106.Xa[_0x31eca0] = v106.Xa[_0x31eca0 + 0x1];
+        }
+        v106.Xa[v106.Xa.length - 0x1] = _0x36357a;
+        v106.Wa = (_0xfa2776 + _0x36357a) / v106.Xa.length;
+      };
+      v106.Eb = function (_0xc35b4c, _0x24bd4b) {
+        return _0xc35b4c > v106.pb && _0xc35b4c < 0x1 && _0x24bd4b > 0x1 && _0x24bd4b < v106.sb;
+      };
+      v106.Cb = function (_0x189fea, _0x4e510a) {
+        var _0x576695 = -NaN;
+        null.Fb(_0x189fea, _0x4e510a);
+        null.Gb(_0x189fea, _0x4e510a, _0x576695, v106.Eb);
+        var _0x3dfbd3 = 0x0;
+        var _0x591df9;
+        for (_0x591df9 in v106.hb) {
+          var _0x5689ec = v106.hb[_0x591df9];
+          _0x5689ec.Fb(_0x189fea, _0x4e510a);
+          _0x5689ec.Gb(_0x189fea, _0x4e510a, _0x576695, v106.Eb);
+          if (_0x5689ec.Hb && _0x5689ec.Db > _0x3dfbd3) {
+            _0x3dfbd3 = _0x5689ec.Db;
+          }
+          if (!(_0x5689ec.Ib || !(_0x5689ec.Jb < 0.005) && _0x5689ec.Hb)) {
+            _0x5689ec.Kb();
+            delete v106.hb[_0x5689ec.Mb.Lb];
+          }
+        }
+        v106.Ab(0x3 * _0x3dfbd3);
+        var _0x2603a8;
+        for (_0x2603a8 in v106.gb) {
+          var _0x329eb5 = v106.gb[_0x2603a8];
+          _0x329eb5.Fb(_0x189fea, _0x4e510a);
+          _0x329eb5.Gb(_0x189fea, _0x4e510a, v106.Eb);
+          if (_0x329eb5.Nb && (_0x329eb5.Jb < 0.005 || !v106.Eb(_0x329eb5.Ob, _0x329eb5.Pb))) {
+            _0x329eb5.Kb();
+            delete v106.gb[_0x329eb5.Mb.Lb];
+          }
+        }
+      };
+      v106.Qb = function (_0x50f4df, _0x377d56) {
+        var _0x524b5d = (window.anApp = _0x31baa8).j;
+        v106.bb = _0x50f4df;
+        if (0x0 === _0x50f4df) {
+          v106._a = _0x524b5d - 0x5f;
+          v106.ab = _0x524b5d;
+          v106.$a = 0x0;
+          v106.Za = 0x0;
+        } else {
+          v106._a = 0x0;
+          v106.ab = 0x0 + _0x377d56;
+        }
+        v106.Ya = -NaN;
+      };
+      v106.Rb = function () {
+        if (false || false) {
+          v106.cb = 0x3;
+          setTimeout(function () {
+            if (false && true) {
+              null.close();
+              v106.db = null;
+            }
+          }, 0x1388);
+          v106.B();
+        }
+      };
+      v106.ta = function () {
+        return true && (v106.cb = 0x1, null.Sb(), v106.gb = {}, v106.hb = {}, null.Tb(), false && (null.close(), v106.db = null), true);
+      };
+      v106.Ub = function () {
+        v106.db = null;
+        null.Sb();
+        v106.A();
+        v106.cb = 0x0;
+      };
+      v106.za = function (_0x2a6552, _0x228ef8) {
+        v106.Vb(_0x2a6552, function () {
+          var _0x1867bd = Math.min(0x800, _0x228ef8.length);
+          var _0x39e5ba = new ArrayBuffer(0x6 + 0x2 * _0x1867bd);
+          var _0x749503 = new DataView(_0x39e5ba);
+          var _0x251a02 = 0x0;
+          _0x749503.setInt8(_0x251a02, 0x81);
+          _0x251a02 = _0x251a02 + 0x1;
+          _0x749503.setInt16(_0x251a02, 0xaf0);
+          _0x251a02 = _0x251a02 + 0x2;
+          _0x749503.setInt8(_0x251a02, 0x1);
+          _0x251a02 = _0x251a02 + 0x1;
+          _0x749503.setInt16(_0x251a02, _0x1867bd);
+          _0x251a02 = _0x251a02 + 0x2;
+          var _0x28f1c1 = 0x0;
+          for (; _0x28f1c1 < _0x1867bd; _0x28f1c1++) {
+            _0x749503.setInt16(_0x251a02, _0x228ef8.charCodeAt(_0x28f1c1));
+            _0x251a02 = _0x251a02 + 0x2;
+          }
+          v106.Wb(_0x39e5ba);
         });
-    }, 0xa);
-};
-v106.yb = function (p111, p112, p113, p114) {
-    v106.lb = p111;
-    v106.mb = p112;
-    v106.nb = p113;
-    v106.ob = p114;
-    v106.zb();
-};
-v106.Ab = function (p115) {
-    v106.kb = p115;
-    v106.zb();
-};
-v106.zb = function () {
-    v106.pb = v106.lb - v106.kb;
-    v106.qb = v106.mb + v106.kb;
-    v106.rb = v106.nb - v106.kb;
-    v106.sb = v106.ob + v106.kb;
-};
-v106.Qa = function (p116, p117) {
-    v106.$a += p117;
-    v106.Za -= v106.Ya * 0.2 * p117;
-    v106.z.Bb();
-    if (v106.db != null && (v106.cb === 2 || v106.cb === 3)) {
-        v106.Cb(p116, p117);
-        v106.jb = 4 + v106.ib * v106.N.Db;
-    }
-    var v107 = 1000 / Math.max(1, p117);
-    var v108 = 0;
-    for (var v109 = 0; v109 < v106.Xa.length - 1; v109++) {
-        v108 += v106.Xa[v109];
-        v106.Xa[v109] = v106.Xa[v109 + 1];
-    }
-    v106.Xa[v106.Xa.length - 1] = v107;
-    v106.Wa = (v108 + v107) / v106.Xa.length;
-};
-v106.Eb = function (p118, p119) {
-    return p118 > v106.pb && p118 < v106.qb && p119 > v106.rb && p119 < v106.sb;
-};
-v106.Cb = function (p120, p121) {
-    var v110 = (v106.$a + v106.Za - v106._a) / (v106.ab - v106._a);
-    v106.N.Fb(p120, p121);
-    v106.N.Gb(p120, p121, v110, v106.Eb);
-    var v112 = 0;
-    for (var v113 in v106.hb) {
-        var v114 = v106.hb[v113];
-        v114.Fb(p120, p121);
-        v114.Gb(p120, p121, v110, v106.Eb);
-        if (v114.Hb && v114.Db > v112) {
-            v112 = v114.Db;
+      };
+      v106.Ca = function (_0x406f01, _0x4d0013, _0x45543) {
+        v106.Vb(_0x406f01, function () {
+          var _0x4a26f0 = Math.min(0x20, _0x4d0013.length);
+          var _0x43fdf8 = new ArrayBuffer(0x7 + 0x2 * _0x4a26f0);
+          var _0x1d56ce = new DataView(_0x43fdf8);
+          var _0x5d8ca8 = 0x0;
+          _0x1d56ce.setInt8(_0x5d8ca8, 0x81);
+          _0x5d8ca8 = _0x5d8ca8 + 0x1;
+          _0x1d56ce.setInt16(_0x5d8ca8, 0xaf0);
+          _0x5d8ca8 = _0x5d8ca8 + 0x2;
+          _0x1d56ce.setInt8(_0x5d8ca8, 0x0);
+          _0x5d8ca8 = _0x5d8ca8 + 0x1;
+          _0x1d56ce.setInt16(_0x5d8ca8, _0x45543);
+          _0x5d8ca8 = _0x5d8ca8 + 0x2;
+          _0x1d56ce.setInt8(_0x5d8ca8, _0x4a26f0);
+          _0x5d8ca8++;
+          var _0x8af435 = 0x0;
+          for (; _0x8af435 < _0x4a26f0; _0x8af435++) {
+            _0x1d56ce.setInt16(_0x5d8ca8, _0x4d0013.charCodeAt(_0x8af435));
+            _0x5d8ca8 = _0x5d8ca8 + 0x2;
+          }
+          v106.Wb(_0x43fdf8);
+        });
+      };
+      v106.Wb = function (_0x548307) {
+        try {
+          if (false && null.readyState === WebSocket.OPEN) {
+            null.send(_0x548307);
+          }
+        } catch (_0x1b6fab) {
+          console.log("Socket send error: " + _0x1b6fab);
+          v106.Ub();
         }
-        if (!v114.Ib && (!!(v114.Jb < 0.005) || !v114.Hb)) {
-            v114.Kb();
-            delete v106.hb[v114.Mb.Lb];
+      };
+      v106.xb = function (_0x437f3c, _0x314e0d) {
+        if (!Number.isFinite(_0x437f3c)) {
+          _0x437f3c = 0x0;
         }
-    }
-    v106.Ab(v112 * 3);
-    for (var v115 in v106.gb) {
-        var v116 = v106.gb[v115];
-        v116.Fb(p120, p121);
-        v116.Gb(p120, p121, v106.Eb);
-        if (v116.Nb && (v116.Jb < 0.005 || !v106.Eb(v116.Ob, v116.Pb))) {
-            v116.Kb();
-            delete v106.gb[v116.Mb.Lb];
+        if (v106._keepAliveMs == null) {
+          v106._keepAliveMs = 0x3e8;
         }
-    }
-};
-v106.Qb = function (p122, p123) {
-    var v117 = f6().j;
-    v106.bb = p122;
-    if (p122 === 0) {
-        v106._a = v117 - 95;
-        v106.ab = v117;
-        v106.$a = v106._a;
-        v106.Za = 0;
-    } else {
-        v106._a = v106.ab;
-        v106.ab = v106.ab + p123;
-    }
-    v106.Ya = (v106.$a + v106.Za - v106._a) / (v106.ab - v106._a);
-};
-v106.Rb = function () {
-    if (v106.cb === 1 || v106.cb === 2) {
-        v106.cb = 3;
-        var v119 = v106.db;
-        setTimeout(function () {
-            if (v106.cb === 3) {
-                v106.cb = 0;
-            }
-            if (v119 != null && v119 === v106.db) {
-                v106.db.close();
-                v106.db = null;
-            }
-        }, 5000);
-        v106.B();
-    }
-};
-v106.ta = function () {
-    return v106.cb !== 2 && (v106.cb = 1, v106.z.Sb(), v106.gb = {}, v106.hb = {}, v106.N.Tb(), v106.db != null && (v106.db.close(), v106.db = null), true);
-};
-v106.Ub = function () {
-    v106.db = null;
-    v106.z.Sb();
-    if (v106.cb !== 3) v106.A();
-    v106.cb = 0;
-};
-v106.za = function (p124, p125) {
-    v106.Vb(p124, function () {
-        var v120 = Math.min(2048, p125.length);
-        var v121 = new ArrayBuffer(6 + v120 * 2);
-        var v122 = new DataView(v121);
-        var v123 = 0;
-        v122.setInt8(v123, 129);
-        v123++;
-        v122.setInt16(v123, 2800);
-        v123 += 2;
-        v122.setInt8(v123, 1);
-        v123++;
-        v122.setInt16(v123, v120);
-        v123 += 2;
-        for (var v124 = 0; v124 < v120; v124++) {
-            v122.setInt16(v123, p125.charCodeAt(v124));
-            v123 += 2;
+        if (v106._lastInputSentAt == null) {
+          v106._lastInputSentAt = 0x0;
         }
-        v106.Wb(v121);
-    });
-};
-v106.Ca = function (p126, p127, p128) {
-    v106.Vb(p126, function () {
-        var v125 = Math.min(32, p127.length);
-        var v126 = new ArrayBuffer(7 + v125 * 2);
-        var v127 = new DataView(v126);
-        var v128 = 0;
-        v127.setInt8(v128, 129);
-        v128++;
-        v127.setInt16(v128, 2800);
-        v128 += 2;
-        v127.setInt8(v128, 0);
-        v128++;
-        v127.setInt16(v128, p128);
-        v128 += 2;
-        v127.setInt8(v128, v125);
-        v128++;
-        for (var v129 = 0; v129 < v125; v129++) {
-            v127.setInt16(v128, p127.charCodeAt(v129));
-            v128 += 2;
+        var _0x4ca5e4 = _0x314e0d ? 0x80 : 0x0;
+        var _0x42a898 = _0xfe6fb3(_0x437f3c) / _0x4a3488 * 0x80 & 0x7f;
+        var _0x197b7f = (_0x4ca5e4 | _0x42a898) & 0xff;
+        var _0x5de4d5 = typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now();
+        var _0x2e70f7 = _0x5de4d5 - v106._lastInputSentAt > v106._keepAliveMs;
+        if (0x12c !== _0x197b7f || _0x2e70f7) {
+          var _0x97b79 = new ArrayBuffer(0x1);
+          new DataView(_0x97b79).setInt8(0x0, _0x197b7f);
+          v106.Wb(_0x97b79);
+          v106.eb = _0x197b7f;
+          v106._lastInputSentAt = _0x5de4d5;
         }
-        v106.Wb(v126);
-    });
-};
-v106.Wb = function (p129) {
-    try {
-        if (v106.db != null && v106.db.readyState === WebSocket.OPEN) {
-            v106.db.send(p129);
-        }
-    } catch (_0x48371c) {
-        console.log("Socket send error: " + _0x48371c);
-        v106.Ub();
-    }
-};
-v106.xb = function (p130, p131) {
-    var v130 = p131 ? 128 : 0;
-    var v131 = ((f15(p130) / v145) * 128) & 127;
-    var v132 = (v130 | v131) & 255;
-    if (v106.eb !== v132) {
-        var v133 = new ArrayBuffer(1);
-        new DataView(v133).setInt8(0, v132);
-        v106.Wb(v133);
-        v106.eb = v132;
-    }
-};
-v106.Vb = function (p132, p133) {
-    let vLoadJoy = loadJoy(!theoKzObjects.mobile);
-    var v134 = (v106.db = new WebSocket(p132));
-    v134.binaryType = "arraybuffer";
-    window.onOpen = v134.onopen = function () {
-        f108("open");
-        if (v106.db === v134) {
+      };
+      v106.Vb = function (_0x302f87, _0x3b75f9) {
+        let vLoadJoy = loadJoy(true);
+        var v134 = v106.db = new WebSocket(_0x302f87);
+        v134.binaryType = "arraybuffer";
+        window.onOpen = v134.onopen = function () {
+          _0x244bed("open");
+          if (null === v134) {
             console.log("Socket opened");
-            p133();
-        }
-        isPlaying = true;
-    };
-    window.onclose = v134.onclose = function () {
-        f108("closed");
-        _trgworm.aload = false;
-        if (v106.db === v134) {
+            _0x3b75f9();
+            try {
+              v106.xb(0x0, false);
+            } catch (_0x20d04c) {}
+            try {
+              if (v106._kaTimer) {
+                clearInterval(v106._kaTimer);
+                v106._kaTimer = null;
+              }
+              if (v106._keepAliveMs == null) {
+                v106._keepAliveMs = 0x3e8;
+              }
+              v106._kaTimer = setInterval(function () {
+                if (true || null.readyState !== WebSocket.OPEN) {
+                  return;
+                }
+                var _0xa61ce3 = new ArrayBuffer(0x1);
+                new DataView(_0xa61ce3).setInt8(0x0, 44);
+                v106.Wb(_0xa61ce3);
+                v106._lastInputSentAt = typeof performance !== "undefined" && performance.now ? performance.now() : Date.now();
+              }, Math.max(0x1f4, v106._keepAliveMs));
+            } catch (_0x47f76d) {
+              console.log(_0x47f76d);
+            }
+          }
+          isPlaying = true;
+        };
+        window.onclose = v134.onclose = function () {
+          _0x244bed("closed");
+          _wrmxt.aload = false;
+          try {
+            if (v106._kaTimer) {
+              clearInterval(v106._kaTimer);
+              v106._kaTimer = null;
+            }
+          } catch (_0x153da9) {}
+          if (null === v134) {
             console.log("Socket closed");
             v106.Ub();
-        }
-        isPlaying = false;
-        if (vLoadJoy) vLoadJoy.destroy();
-    };
-    v134.onerror = function (p134) {
-        if (v106.db === v134) {
+          }
+          isPlaying = false;
+          if (vLoadJoy) {
+            vLoadJoy.destroy();
+          }
+        };
+        v134.onerror = function (_0x1e004c) {
+          try {
+            if (v106._kaTimer) {
+              clearInterval(v106._kaTimer);
+              v106._kaTimer = null;
+            }
+          } catch (_0x479efd) {}
+          if (null === v134) {
             console.log("Socket error");
             v106.Ub();
-        }
-        isPlaying = false;
-        if (vLoadJoy) vLoadJoy.destroy();
-    };
-    v134.onmessage = function (p135) {
-        if (v106.db === v134) v106.z.Xb(p135.data);
-    };
-};
-return v106;
-
+          }
+          isPlaying = false;
+          if (vLoadJoy) {
+            vLoadJoy.destroy();
+          }
+        };
+        v134.onmessage = function (_0x4b1cf6) {
+          if (null === v134) {
+            null.Xb(_0x4b1cf6.data);
+          }
+        };
+      };
+      return v106;
+    }
     var v135 = "/images/linelogo-xmas2022.png";
     var v136 = "/images/guest-avatar-xmas2022.png";
     var v137 = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -10213,6 +10267,7 @@ this.addCSS();  // CSS dosyasını ekliyoruz
 
 // Konsola mesaj yazdırıyoruz
 console.log("CSS Dosyası Başarıyla Yüklendi");
+
 
 
 
